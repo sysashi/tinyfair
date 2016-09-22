@@ -1,0 +1,9 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= label f, :username %>
+  <%= text_input f, :username %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password %>
+
+  <%= submit "Get in" %>
+<% end %>

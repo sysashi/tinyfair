@@ -27,7 +27,7 @@ defmodule TinyFair.User do
     |> validate_required([:username])
   end
 
-  def registration_changeset(struct, params) do
+  def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :password])
     |> validate_required([:username, :password])

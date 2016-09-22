@@ -17,10 +17,12 @@ defmodule TinyFair.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TinyFair do
-  #   pipe_through :api
-  # end
+    resources "/session", SessionController, singleton: true,
+      only: [:new, :create, :delete]
+    get "/session", SessionController, :delete # handy logout
+
+    resources "/registration", RegistrationController, singleton: true,
+      only: [:new, :create]
+  end
 end
