@@ -23,6 +23,8 @@ defmodule TinyFair.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+
+      TinyFair.Web.common_aliases
     end
   end
 
@@ -36,6 +38,8 @@ defmodule TinyFair.Web do
 
       import TinyFair.Router.Helpers
       import TinyFair.Gettext
+
+      TinyFair.Web.common_aliases
     end
   end
 
@@ -52,6 +56,8 @@ defmodule TinyFair.Web do
       import TinyFair.Router.Helpers
       import TinyFair.ErrorHelpers
       import TinyFair.Gettext
+
+      TinyFair.Web.common_aliases
     end
   end
 
@@ -69,6 +75,17 @@ defmodule TinyFair.Web do
       import Ecto
       import Ecto.Query
       import TinyFair.Gettext
+    end
+  end
+
+  defmacro common_aliases do
+    quote do
+      alias TinyFair.{
+        User,
+        UserRole,
+        Invite,
+        Repo
+      }
     end
   end
 
