@@ -1,6 +1,6 @@
 defmodule TinyFair.InviteHelper do
   require TinyFair.Web
-  TinyFair.Web.common_aliaces
+  TinyFair.Web.common_aliases
 
   @valid_for (3600 * 24) * 31 # seconds
   def registrable?(%Invite{token: token}), do: registrable?(token)
