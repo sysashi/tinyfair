@@ -15,6 +15,12 @@ defmodule TinyFair.User do
 
     many_to_many :roles, TinyFair.UserRole, join_through: "users_roles"
 
+    # being an inviter
+    has_many :invites, Invite
+
+    # being an invitee
+    belongs_to :invite, Invite
+
     timestamps()
   end
 
