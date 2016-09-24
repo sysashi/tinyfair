@@ -24,5 +24,8 @@ defmodule TinyFair.Router do
 
     resources "/registration", RegistrationController, singleton: true,
       only: [:new, :create]
+
+    get "/invite", InviteController, :activation_page
+    post "/invite", InviteController, :activate
   end
 end

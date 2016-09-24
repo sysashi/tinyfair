@@ -14,9 +14,14 @@ defmodule TinyFair.Invite do
     timestamps()
   end
 
-  def update_changeset(struct, params \\ %{}) do
+  def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:token, :expiry, :activated_at, :user_role_id])
+  end
+
+  def update_changeset(struct, params) do
+    struct
+    |> changeset(params)
   end
 
   def create_changeset(struct, params \\ %{}) do
