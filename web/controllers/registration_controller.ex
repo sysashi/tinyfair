@@ -5,15 +5,20 @@ defmodule TinyFair.RegistrationController do
 
   def new(conn, _params) do
     changeset = User.registration_changeset(%User{})
-    invite = extract_invite(conn)
-    render(conn, "new.html", changeset: changeset, invite: invite)
+    render(conn, "new.html", changeset: changeset, invite: extract_invite(conn))
   end
 
   def create(conn, %{"user" => registration_params}) do
-    changeset = User.registration_changeset(%User{}, registration_params)
-
+    invite = extract_invite(conn)
+    user = if invite do
+      Ecto.build_assoc(invite, :invitee)
+    else
+      %User{}
+    end
+    changeset = User.registration_changeset(user, registration_params)
     case Repo.insert(changeset) do
       {:ok, _registration} ->
+        activate_invite(invite)
         conn
         |> put_flash(:info, "Registration completed successfully.")
         |> redirect(to: "/")
@@ -28,4 +33,10 @@ defmodule TinyFair.RegistrationController do
     invite |> Repo.preload(:inviter)
   end
   defp extract_invite(_conn), do: nil
+
+  defp activate_invite(invite) do
+    Invite.changeset(invite, %{activated_at: Ecto.DateTime.utc})
+    |> Repo.update!
+  end
+  defp activate_invite(nil), do: nil
 end
