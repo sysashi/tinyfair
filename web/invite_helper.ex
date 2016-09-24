@@ -3,16 +3,22 @@ defmodule TinyFair.InviteHelper do
   TinyFair.Web.common_aliases
 
   @valid_for (3600 * 24) * 31 # seconds
-  def registrable?(%Invite{token: token}), do: registrable?(token)
+  def registrable(token), do: registrable?(token, result: true)
 
-  def registrable?(token) when is_binary(token) do
+  def registrable?(token, opts \\ [])
+
+  def registrable?(%Invite{token: token}, opts), do: registrable?(token, opts)
+
+  def registrable?(token, opts) when is_binary(token) do
+    return? = Keyword.get(opts, :result, false)
     with \
       {:ok, invite_id} <- Phoenix.Token.verify(TinyFair.Endpoint, "invite", token, max_age: @valid_for),
       invite when not is_nil(invite) <- Repo.get(Invite, invite_id) do
             invite = invite |> Repo.preload(:invitee)
-            is_nil(invite.activated_at) and is_nil(invite.invitee)
+            r? = is_nil(invite.activated_at) and is_nil(invite.invitee)
+            if return?, do: {r?, invite}, else: r?
       else
-        _ -> false
+        invite -> if return?, do: {false, invite}, else: false
     end
   end
 

@@ -13,6 +13,10 @@ defmodule TinyFair.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :invite_only do
+    plug TinyFair.Auth.InviteOnly
+  end
+
   scope "/", TinyFair do
     pipe_through :browser # Use the default browser stack
 
@@ -22,10 +26,15 @@ defmodule TinyFair.Router do
       only: [:new, :create, :delete]
     get "/session", SessionController, :delete # handy logout
 
+    get "/invite", InviteController, :activation_page
+    get "/invite-rules", InviteController, :invite_rules
+    post "/invite", InviteController, :activate
+  end
+
+  scope "/", TinyFair do
+    pipe_through [:browser, :invite_only]
+
     resources "/registration", RegistrationController, singleton: true,
       only: [:new, :create]
-
-    get "/invite", InviteController, :activation_page
-    post "/invite", InviteController, :activate
   end
 end

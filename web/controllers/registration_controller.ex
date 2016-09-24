@@ -5,7 +5,8 @@ defmodule TinyFair.RegistrationController do
 
   def new(conn, _params) do
     changeset = User.registration_changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
+    invite = extract_invite(conn)
+    render(conn, "new.html", changeset: changeset, invite: invite)
   end
 
   def create(conn, %{"user" => registration_params}) do
@@ -20,4 +21,9 @@ defmodule TinyFair.RegistrationController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  defp extract_invite(%Plug.Conn{assigns: %{invite: invite}}) do
+    invite |> Repo.preload(:inviter)
+  end
+  defp extract_invite(_conn), do: nil
 end

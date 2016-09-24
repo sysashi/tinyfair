@@ -7,6 +7,10 @@ defmodule TinyFair.InviteController do
     render conn, "activate.html", changeset: changeset
   end
 
+  def invite_rules(conn, _params) do
+    conn
+  end
+
   def activate(conn, %{"invite" => %{"token" => token}} = params) do
     changeset = Invite.changeset(%Invite{}, params)
     if registrable?(token) do
