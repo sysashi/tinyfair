@@ -19,7 +19,7 @@ defmodule TinyFair.InviteController do
       |> redirect(to: registration_path(conn, :new))
     else
       conn
-      |> put_flash(:error, "Oops something wrong with this invite")
+      |> put_flash(:error, "Oops something is wrong with this invite")
       |> render("activate.html", changeset: changeset)
     end
   end

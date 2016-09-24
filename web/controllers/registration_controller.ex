@@ -18,7 +18,9 @@ defmodule TinyFair.RegistrationController do
         |> put_flash(:info, "Registration completed successfully.")
         |> redirect(to: "/")
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
+        |> render("new.html", changeset: changeset)
     end
   end
 
