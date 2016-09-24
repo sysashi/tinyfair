@@ -1,11 +1,11 @@
+<div class="center-form">
+    <h2>Invite activation</h2>
 <%= form_for @changeset, invite_path(@conn, :activate), fn f -> %>
-  <div class="form-group">
-    <%= label f, :token, class: "control-label" %>
-    <%= text_input f, :token, class: "form-control" %>
+<fieldset>
+    <%= label f, :token %>
+    <%= text_input f, :token %>
     <%= error_tag f, :token %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
+    <%= submit "Activate", class: "button-primary" %>
+</fieldset>
 <% end %>
+</div>

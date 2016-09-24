@@ -1,10 +1,5 @@
 <%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
+<u><em> Required fields </em></u>
   <div class="form-group">
     <%= label f, :username, class: "control-label" %>
     <%= text_input f, :username, class: "form-control" %>
@@ -13,24 +8,29 @@
 
   <div class="form-group">
     <%= label f, :password, class: "control-label" %>
-    <%= text_input f, :password, class: "form-control" %>
+    <%= password_input f, :password, class: "form-control" %>
     <%= error_tag f, :password %>
   </div>
 
+  <div class="separator"></div>
+
+  <em>These fields are optional, however filling them would allow us to send notifications
+      and overall communicate with you. You can change them later
+  </em>
   <div class="form-group">
-    <%= label f, :phone, class: "control-label" %>
-    <%= text_input f, :phone, class: "form-control" %>
+    <%= label f, :phone, "Phone number", class: "control-label" %>
+    <%= telephone_input f, :phone, class: "form-control" %>
     <%= error_tag f, :phone %>
   </div>
 
   <div class="form-group">
     <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
+    <%= email_input f, :email, class: "form-control" %>
     <%= error_tag f, :email %>
   </div>
 
   <div class="form-group">
-    <%= label f, :line_id, class: "control-label" %>
+    <%= label f, :line_id, "Line id", [class: "control-label"] %>
     <%= text_input f, :line_id, class: "form-control" %>
     <%= error_tag f, :line_id %>
   </div>

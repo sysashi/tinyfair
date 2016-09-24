@@ -20,9 +20,13 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
+        joinTo: {
+            "css/app.css": /^(web\/static\/css)|(node_modules)/
+           // "css/vendor.css": /^node_modules/
+        },
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+          after: ["web/static/css/app.css"], 
+          before: ["node_modules/normalize.css/normalize.css"]
       }
     },
     templates: {
@@ -54,6 +58,12 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    postcss: {
+      processors: [
+        require("postcss-partial-import"),
+        require("postcss-cssnext")
+      ]
     }
   },
 
@@ -64,6 +74,10 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    styles: {
+        milligram: ["dist/milligram.min.css"],
+        "normalize.css": ["normalize.css"]
+    }
   }
 };

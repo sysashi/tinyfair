@@ -7,29 +7,50 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello TinyFair!</title>
+    <title>CandyShop</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
+          <div class="container topmenu">
+              <div class="row">
+                <span class="logo column column-20">CandyShop</span>
+                <nav role="navigation" class="main-layout-nav">
+                    <ul class="main-layout-topmenu">
+                        <!-- if logged in, show logout:
+                        <li><a href="/session">Logout</a></li>
+                        -->
+                    </ul>
+                </nav>
+              </div>
+          </div>
       </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <div class="container content">
+      <%= show_alerts(@conn, [:info, :error]) %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
     </div> <!-- /container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer-section">
+                    <a href="/faq">FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <a href="/contact">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <span class="copyright"> © 2016 </span>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

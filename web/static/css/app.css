@@ -1,1 +1,102 @@
 /* This file is for your main application css. */
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    flex: 1;
+}
+
+.logo {
+    font-size: 3rem;
+}
+
+header {
+    flex: 1;
+    max-height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.topmenu {
+    border-bottom: 1px solid #dccaca;
+}
+
+.main-layout-nav {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.main-layout-topmenu {
+    list-style: none;
+
+    & > li {
+        margin-left: 20px;
+        display: inline-block;
+    }
+}
+
+.center-form {
+    flex: 0 0 400px;
+    margin-top: 2rem;
+}
+
+/* alerts */
+.alert {
+    display: block;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    border: 1px solid #dccaca00;
+
+    &.alert-danger {
+        background: #f2dede; 
+        border-color: #ebcccc;
+        color: #a94442;
+    }
+
+    &.alert-info {
+        background: #d9edf7; 
+        border-color: #bcdff1;
+        color: #31708f;
+    }
+}
+
+footer {
+    max-height: 100px;
+
+    & .row {
+        justify-content: center;
+    }
+
+    & .footer-section {
+        flex: 0 0 100px;;
+        padding: 10px;
+        border-top: 2px dashed #dccaca;
+        text-align: center;
+    }
+
+    & .copyright {
+        font-size: 1.33rem;
+    }
+}
+
+.separator {
+    width: 100%;
+    border-top: 2px solid #DDD;
+    margin: 10px 0 15px 0;
+}
