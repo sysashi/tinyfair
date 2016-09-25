@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="column column-25">
+        <div class="menu">
+            <p class="menu-label">
+                Marketplace
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a class="is-active" href="#"></a>
+                    <ul>
+                        <li><a href="#">Members</a></li>
+                        <li><a href="#">Plugins</a></li>
+                        <li><a href="#">Add a member</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Active orders</a></li>
+                <li><a href="#">Stash</a></li>
+                <li><a href="#">History</a></li>
+                <li><a href="#">Summary</a></li>
+            </ul>
+            <p class="menu-label">
+                Messages
+            </p>
+            <ul class="menu-list">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">History</a></li>
+            </ul>
+            <p class="menu-label">
+                My Account
+            </p>
+            <ul class="menu-list">
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Invitations</a></li>
+                <li><a href="#">Contacts</a></li>
+                <li><a href="#">Registration info</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="column column-70">
+        <!-- <%=  @view_module %>
+        <%=  @view_template  %> -->
+    </div>
+</div>
