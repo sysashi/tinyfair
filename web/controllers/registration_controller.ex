@@ -24,7 +24,7 @@ defmodule TinyFair.RegistrationController do
         |> redirect(to: "/")
       {:error, changeset} ->
         conn
-        |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
+        # |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
         |> render("new.html", changeset: changeset)
     end
   end
