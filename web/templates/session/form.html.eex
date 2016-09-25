@@ -5,5 +5,5 @@
   <%= label f, :password %>
   <%= password_input f, :password %>
 
-  <%= submit "Get in" %>
+  <%= submit "Proceed" %>
 <% end %>

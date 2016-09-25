@@ -51,7 +51,7 @@ defmodule TinyFair.SessionController do
 
   defp failed_login(conn) do
     conn
-    |> put_flash(:error, "Oops something went wrong! ><")
+    |> put_flash(:error, "Oops something went wrong! Username or password is incorrect")
     |> redirect(to: session_path(conn, :new))
     |> halt()
   end

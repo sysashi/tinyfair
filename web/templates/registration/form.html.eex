@@ -1,5 +1,5 @@
 <%= form_for @changeset, @action, fn f -> %>
-<u><em> Required fields </em></u>
+<strong><em> Required fields </em></strong>
   <div class="form-group">
     <%= label f, :username, class: "control-label" %>
     <%= text_input f, :username, class: "form-control" %>

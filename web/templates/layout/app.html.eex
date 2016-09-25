@@ -15,7 +15,9 @@
       <header class="header">
           <div class="container topmenu">
               <div class="row">
-                <span class="logo column column-20">CandyShop</span>
+                <div class="column column-20">
+                    <span class="logo">CandyShop</span>
+                </div>
                 <nav role="navigation" class="main-layout-nav">
                     <ul class="main-layout-topmenu">
                         <!-- if logged in, show logout:

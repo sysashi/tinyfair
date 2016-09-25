@@ -17,10 +17,13 @@ main {
 
 .container {
     flex: 1;
+    max-width: 900px;
 }
 
 .logo {
     font-size: 3rem;
+    padding: 10px 0;
+    display: block;
 }
 
 header {
@@ -52,28 +55,6 @@ header {
 .center-form {
     flex: 0 0 400px;
     margin-top: 2rem;
-}
-
-/* alerts */
-.alert {
-    display: block;
-    padding: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 2px;
-    border: 1px solid #dccaca00;
-
-    &.alert-danger {
-        background: #f2dede; 
-        border-color: #ebcccc;
-        color: #a94442;
-    }
-
-    &.alert-info {
-        background: #d9edf7; 
-        border-color: #bcdff1;
-        color: #31708f;
-    }
 }
 
 footer {
