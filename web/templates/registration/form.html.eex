@@ -1,39 +1,30 @@
 <%= form_for @changeset, @action, fn f -> %>
-<em> Required fields </em>
-  <div class="form-group">
+    <em> Required fields </em>
+
     <%= label f, :username, class: "control-label" %>
     <%= error_tag f, :username %>
     <%= text_input f, :username, class: if_error_class(f, :username, "border-danger")%>
-  </div>
 
-  <div class="form-group">
     <%= label f, :password, class: "control-label" %>
     <%= error_tag f, :password %>
     <%= password_input f, :password, class: if_error_class(f, :password, "border-danger") %>
-  </div>
 
-  <div class="separator"></div>
+    <div class="separator"></div>
 
-  <em>These fields are optional, however filling them would allow us to send notifications
-      and overall communicate with you. You can change them later
-  </em>
-  <div class="form-group">
+    <em>These fields are optional, however filling them would allow us to send notifications
+        and overall communicate with you. You can change them later </em>
+
     <%= label f, :phone, "Phone number", class: "control-label" %>
     <%= error_tag f, :phone %>
     <%= telephone_input f, :phone, class: "form-control" %>
-  </div>
 
-  <div class="form-group">
     <%= label f, :email, class: "control-label" %>
     <%= error_tag f, :email %>
     <%= email_input f, :email, class: "form-control" %>
-  </div>
 
-  <div class="form-group">
     <%= label f, :line_id, "Line id", [class: "control-label"] %>
     <%= error_tag f, :line_id %>
     <%= text_input f, :line_id, class: "form-control" %>
-  </div>
 
-  <%= submit "Submit", class: "btn btn-primary" %>
+    <%= submit "Submit", class: "btn btn-primary" %>
 <% end %>
