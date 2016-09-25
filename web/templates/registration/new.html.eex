@@ -1,5 +1,5 @@
 <div class="center-form">
-<h2>Registration</h2>
+<h4>Account registration</h4>
 <%= render "form.html", changeset: @changeset,
                         action: registration_path(@conn, :create) %>
 </div>

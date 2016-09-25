@@ -20,6 +20,11 @@ defmodule TinyFair.Router do
   scope "/", TinyFair do
     pipe_through :browser # Use the default browser stack
 
+    resources "/account", AccountController, singleton: true,
+      only: [:show] do
+      # resources "/contacts"
+    end
+
     get "/", PageController, :index
 
     resources "/session", SessionController, singleton: true,

@@ -34,7 +34,7 @@ defmodule TinyFair.RegistrationController do
   end
   defp extract_invite(_conn), do: nil
 
-  defp activate_invite(invite) do
+  defp activate_invite(%Invite{} = invite) do
     Invite.changeset(invite, %{activated_at: Ecto.DateTime.utc})
     |> Repo.update!
   end

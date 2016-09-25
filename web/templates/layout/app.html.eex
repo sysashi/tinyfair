@@ -26,7 +26,15 @@
                     </ul>
                 </nav>
               </div>
+
           </div>
+        <div class="container usermenu">
+            <div class="row">
+                <a href="" class="column"><span class="usermenu-item">Marketplace</span></a>
+                <a href="" class="column"><span class="usermenu-item">Chat</span></a>
+                <a href="" class="column is-active"><span class="usermenu-item">My Account</span></a>
+            </div>
+        </div>
       </header>
 
     <div class="container content">
@@ -41,14 +49,14 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="footer-section">
-                    <a href="/faq">FAQ</a>
-                </div>
-                <div class="footer-section">
-                    <a href="/contact">Contact</a>
-                </div>
-                <div class="footer-section">
-                    <span class="copyright"> © 2016 </span>
+                <a href="/faq" class="footer-section">
+                    FAQ
+                </a>
+                <a href="/contact" class="footer-section">
+                    Contact
+                </a>
+                <div class="footer-section copyright">
+                    <span> © 2016 </span>
                 </div>
             </div>
         </div>

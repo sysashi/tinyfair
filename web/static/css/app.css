@@ -1,7 +1,12 @@
 /* This file is for your main application css. */
+@custom-media --small-screen (width <= 500px);
 
 html {
     height: 100%;
+    font-size: 10px;
+    @media (--small-screen) {
+        font-size: 12px;
+    }
 }
 
 body {
@@ -27,14 +32,53 @@ main {
 }
 
 header {
-    flex: 1;
-    max-height: 100px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .topmenu {
-    border-bottom: 1px solid #dccaca;
+    & > .row {
+        border-bottom: 1px solid #dccaca;
+    }
+}
+
+.usermenu {
+    flex: 0;
+    & > .row {
+        border-bottom: 1px solid #dccaca;
+    }
+    & .usermenu-item {
+        padding: 8px 4px;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    & .column:not(:last-child) {
+        border-right: 1px solid #DDD;
+    }
+
+    & .column {
+        border-bottom: 2px solid transparent;
+        background: #efefef;
+        border-color: #d1d1d1;
+        color: #818181;
+
+        &:hover {
+            background: #DDD;
+            color: #666;
+            border-color: #bbb;
+        }
+
+        &.is-active {
+            color: #666;
+            background: #eee;
+            border-color: #d48985;
+        }
+    }
 }
 
 .main-layout-nav {
@@ -54,27 +98,48 @@ header {
 
 .center-form {
     flex: 0 0 400px;
+    @media (--small-screen) {
+        flex: 1;
+    }
     margin-top: 2rem;
 }
 
 footer {
     max-height: 100px;
+    font-size: 1.3rem;
 
     & .container {
-        max-width: 500px;
     }
 
     & .row {
-        justify-content: space-around;
+        justify-content: flex-start;
+    }
+
+    & a.footer-section {
+       /* border-right: 1px dashed #ddd; */
+        border-top: 1px dashed #dccaca;
+        background: #eee;
+        font-weight: bold;
+
+        &:hover {
+            border-color: #ae9999;
+            background: #dff;
+            transition: 0.3s;
+        }
     }
 
     & .footer-section {
-        flex: 0 0 100px;;
-        padding: 10px;
-        border-top: 2px dashed #dccaca;
+        flex: 0 0 100px;
+        padding: 10px 20px;
         text-align: center;
-        &:hover {
-            border-color: #ae9999;
+
+
+        & > a , & > span {
+            display: inline-block;
+        }
+
+        &.copyright {
+            margin-left: auto;
         }
     }
 
@@ -87,4 +152,52 @@ footer {
     width: 100%;
     border-top: 2px solid #DDD;
     margin: 10px 0 15px 0;
+}
+
+.menu {
+    & a {
+        font-size: 1.3rem;
+    }
+    & ul {
+        list-style: none;
+    }
+
+    & .menu-list li ul {
+        border-left: 1px solid #dbdbdb;
+        margin: 10px;
+        padding-left: 10px;
+    }
+
+    & .menu-label {
+        margin: 0 0 4px 0;
+        color: #7a7a7a;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    & .menu-list a {
+        border-radius: 2px;
+        color: #4a4a4a;
+        display: block;
+        padding: 5px 10px;
+
+        &:hover {
+            background-color: whitesmoke;
+            color: #11e4c4;
+        }
+
+        &.is-active {
+            background-color: #11e4c4;
+            color: white;
+        }
+
+    }
+}
+a {
+    color: #11e4c4;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: none 86ms ease-out;
+    transition: none 86ms ease-out;
 }
