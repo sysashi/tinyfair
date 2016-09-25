@@ -21,7 +21,8 @@ exports.config = {
     },
     stylesheets: {
         joinTo: {
-            "css/app.css": /^(web\/static\/css)|(node_modules)/
+            "css/clean.css": /(web\/static\/css\/clean.css)|(node_modules)/,
+            "css/app.css": /^(web\/static\/css(?!\/clean.css))|(node_modules)/
            // "css/vendor.css": /^node_modules/
         },
       order: {

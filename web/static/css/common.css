@@ -1,0 +1,21 @@
+/* alerts */
+.alert {
+    display: block;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    border: 1px solid #dccaca00;
+
+    &.alert-danger {
+        background: #f2dede; 
+        border-color: #ebcccc;
+        color: #a94442;
+    }
+
+    &.alert-info {
+        background: #d9edf7; 
+        border-color: #bcdff1;
+        color: #31708f;
+    }
+}
