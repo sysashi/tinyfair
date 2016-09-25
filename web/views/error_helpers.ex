@@ -37,4 +37,10 @@ defmodule TinyFair.ErrorHelpers do
       Gettext.dgettext(TinyFair.Gettext, "errors", msg, opts)
     end
   end
+
+  def if_error_class(form, field, fallback_classname \\ "error") do
+    if error = form.errors[field] do
+      fallback_classname
+    end
+  end
 end

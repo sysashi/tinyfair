@@ -19,3 +19,18 @@
         color: #31708f;
     }
 }
+
+.border-danger {
+    border-color: #dc2c2c !important;
+}
+
+
+.help-block {
+    font-size: 13px;
+    font-weight: bolder;
+    color: #dc2c2c;
+    display: inline-block;
+    &:first-letter {
+        text-transform: uppercase;
+    }
+}
