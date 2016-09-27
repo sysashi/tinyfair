@@ -5,7 +5,8 @@ defmodule TinyFair.LayoutView do
   def active_path_link(helper_fun, conn, opts, do: contents) do
     current_route = existing_route?(conn_controller_action(conn), registered_routes())
     to = helper_fun.(conn)
-    opts = if current_route.path == to do
+    opts = if current_route.path == to ||
+      String.starts_with?(current_route.path, to) do
       Keyword.merge(opts, [class: "is-active"], fn :class, v1, v2 -> "#{v1} #{v2}" end)
     else
       opts
