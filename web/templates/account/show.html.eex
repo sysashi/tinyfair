@@ -2,28 +2,39 @@
     <div class="column column-25">
         <div class="menu">
             <p class="menu-label">
-                Marketplace
-            </p>
-            <ul class="menu-list">
-                <li>
-                    <a class="is-active" href="#"></a>
-                    <ul>
-                        <li><a href="#">Members</a></li>
-                        <li><a href="#">Plugins</a></li>
-                        <li><a href="#">Add a member</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Active orders</a></li>
-                <li><a href="#">Stash</a></li>
-                <li><a href="#">History</a></li>
-                <li><a href="#">Summary</a></li>
-            </ul>
-            <p class="menu-label">
                 Messages
             </p>
             <ul class="menu-list">
                 <li><a href="#">Inbox</a></li>
                 <li><a href="#">History</a></li>
+            </ul>
+            <p class="menu-label">
+                Marketplace
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a class="" href="#">Purchase Orders</a>
+                    <ul>
+                        <li><a href="#">Active</a></li>
+                        <li><a href="#">History</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="" href="#">My Products</a>
+                    <ul>
+                        <li><a href="#">Add a new product</a></li>
+                        <li><a href="#">Stash</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="is-active" href="#">My Orders</a>
+                    <ul>
+                        <li><a href="#">Active</a></li>
+                        <li><a href="#">History</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">All History</a></li>
+                <li><a href="#">Summary</a></li>
             </ul>
             <p class="menu-label">
                 My Account
