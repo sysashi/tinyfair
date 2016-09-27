@@ -25,6 +25,11 @@ defmodule TinyFair.Router do
       # resources "/contacts"
     end
 
+    resources "/marketplace", MarketplaceController, singleton: true, only: [:show] do
+      resources "/products", ProductController,
+        only: [:index]
+    end
+
     get "/", PageController, :index
 
     resources "/session", SessionController, singleton: true,

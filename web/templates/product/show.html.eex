@@ -1,0 +1,36 @@
+<h2>Show product</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @product.name %>
+  </li>
+
+  <li>
+    <strong>Quantity:</strong>
+    <%= @product.quantity %>
+  </li>
+
+  <li>
+    <strong>Image url:</strong>
+    <%= @product.image_url %>
+  </li>
+
+  <li>
+    <strong>Desc:</strong>
+    <%= @product.desc %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @product.status %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @product.user_id %>
+  </li>
+
+</ul>
+
