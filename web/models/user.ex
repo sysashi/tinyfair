@@ -1,6 +1,8 @@
 defmodule TinyFair.User do
   use TinyFair.Web, :model
 
+  @avaialable_statuses ~w(active hidden banned)
+
   schema "users" do
     field :username
     field :password, :string, virtual: true
@@ -31,6 +33,17 @@ defmodule TinyFair.User do
     struct
     |> cast(params, [:username])
     |> validate_required([:username])
+  end
+
+  def update_contacts(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:email, :phone, :line_id])
+    |> validate_format(:email, ~r/@/)
+  end
+
+  def update_settings(struct, params) do
+    struct
+    |> cast(params, [])
   end
 
   def registration_changeset(struct, params \\ %{}) do

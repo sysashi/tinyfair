@@ -1,6 +1,7 @@
 defmodule TinyFair.LayoutView do
   use TinyFair.Web, :view
 
+  # TODO: mark parent path too
   def active_path_link(helper_fun, conn, opts, do: contents) do
     current_route = existing_route?(conn_controller_action(conn), registered_routes())
     to = helper_fun.(conn)

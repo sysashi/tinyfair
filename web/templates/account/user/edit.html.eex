@@ -1,0 +1,17 @@
+<div class="center-form">
+<%= form_for @changeset, account_contacts_path(@conn, :update_contacts), fn f -> %>
+    <%= label f, :phone, "Phone number", class: "control-label" %>
+    <%= error_tag f, :phone %>
+    <%= telephone_input f, :phone, class: "form-control" %>
+
+    <%= label f, :email, class: "control-label" %>
+    <%= error_tag f, :email %>
+    <%= email_input f, :email, class: "form-control" %>
+
+    <%= label f, :line_id, "Line id", [class: "control-label"] %>
+    <%= error_tag f, :line_id %>
+    <%= text_input f, :line_id, class: "form-control" %>
+
+    <%= submit "Submit", class: "button button-primary" %>
+<% end %>
+</div>

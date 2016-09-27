@@ -14,21 +14,15 @@ defmodule TinyFair.Router do
   end
 
   pipeline :invite_only do
-    plug TinyFair.Auth.InviteOnly
+    plug TinyFair.AuthPlugs.InviteOnly
+  end
+
+  pipeline :user_only do
+    plug TinyFair.AuthPlugs.UserOnly
   end
 
   scope "/", TinyFair do
-    pipe_through :browser # Use the default browser stack
-
-    resources "/account", AccountController, singleton: true,
-      only: [:show] do
-      # resources "/contacts"
-    end
-
-    resources "/marketplace", MarketplaceController, singleton: true, only: [:show] do
-      resources "/products", ProductController,
-        only: [:index]
-    end
+    pipe_through :browser
 
     get "/", PageController, :index
 
@@ -39,6 +33,29 @@ defmodule TinyFair.Router do
     get "/invite", InviteController, :activation_page
     get "/invite-rules", InviteController, :invite_rules
     post "/invite", InviteController, :activate
+  end
+
+  scope "/", TinyFair do
+    pipe_through [:browser, :user_only] # Use the default browser stack
+
+    resources "/account", AccountController, singleton: true,
+      only: [:show] do
+
+      # Edit user contacts
+      get "/contacts", Account.UserController, :contacts, as: "contacts"
+      put "/contacts", Account.UserController, :update_contacts, as: "contacts"
+      post "/contacts", Account.UserController, :update_contacts, as: "contacts"
+
+      # Edit user settings (Notification types, etc)
+      get "/settings", Account.UserController, :settings, as: "settings"
+      put "/settings", Account.UserController, :update_settings, as: "settings"
+      post "/settings", Account.UserController, :update_settings, as: "settings"
+    end
+
+    resources "/marketplace", MarketplaceController, singleton: true, only: [:show] do
+      resources "/products", ProductController,
+        only: [:index]
+    end
   end
 
   scope "/", TinyFair do

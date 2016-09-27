@@ -9,7 +9,7 @@ defmodule TinyFair.Product do
     field :image_url, :string
     field :desc, :string
     field :status, :string, default: "stash"
-    belongs_to :owner, TinyFair.User, foregin_key: :user_id
+    belongs_to :owner, TinyFair.User, foreign_key: :user_id
 
     field :deleted_at, Ecto.DateTime
     timestamps()

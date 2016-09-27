@@ -32,13 +32,13 @@ defmodule TinyFair.Web do
     quote do
       use Phoenix.Controller, namespace: TinyFair
 
-      alias TinyFair.Repo
       import Ecto
       import Ecto.Query
 
       import TinyFair.Router.Helpers
       import TinyFair.Gettext
 
+      import TinyFair.ControllerHelpers
       TinyFair.Web.common_aliases
     end
   end

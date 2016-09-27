@@ -41,7 +41,7 @@ defmodule TinyFair.SessionController do
       {true, user} ->
         conn
         |> put_session(:user_id, user.id)
-        |> redirect(to: "/")
+        |> redirect(to: account_path(conn, :show))
       {false, _user} ->
         failed_login(conn)
     end

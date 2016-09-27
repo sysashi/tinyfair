@@ -47,7 +47,8 @@
       <%= show_alerts(@conn, [:info, :error]) %>
 
       <main role="main">
-        <%= render @view_module, @view_template, assigns %>
+        <!-- # thanks to http://stackoverflow.com/questions/39542831/how-can-i-render-a-child-layout-inside-a-parent-one -->
+        <%= render(@view_module, @view_template, if(assigns[:child_layout], do: Map.put(assigns, :layout, @child_layout), else: assigns)) %>
       </main>
 
     </div> <!-- /container -->
