@@ -20,8 +20,9 @@ defmodule TinyFair.Product do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :quantity, :image_url, :desc, :status])
+    |> cast(params, [:name, :quantity, :image_url, :desc, :status, :user_id])
     |> validate_number(:quantity, greater_than_or_equal_to: 0)
+    |> assoc_constraint(:owner)
   end
 
   def update_changeset(struct, params \\ %{}) do

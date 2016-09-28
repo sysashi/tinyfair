@@ -8,7 +8,7 @@ defmodule TinyFair.Repo.Migrations.CreateProduct do
       add :image_url, :string
       add :desc, :string
       add :status, :string, null: false, default: "stash"
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :nothing), null: false
 
       add :deleted_at, :datetime
       timestamps()
