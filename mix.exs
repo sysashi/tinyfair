@@ -19,7 +19,7 @@ defmodule TinyFair.Mixfile do
   def application do
     [mod: {TinyFair, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex] ++ [:comeonin, :ex_machina]]
+                    :phoenix_ecto, :postgrex] ++ [:comeonin, :ex_machina, :arc_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,10 @@ defmodule TinyFair.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:ex_machina, "~> 1.0"},
-     {:identicon, github: "rbishop/identicon"}]
+     {:identicon, github: "rbishop/identicon"},
+     {:arc, "~> 0.5.2"},
+     {:arc_ecto, "~> 0.4.4"}]
+
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
