@@ -15,7 +15,9 @@ defmodule TinyFair.User do
     field :status, :string, default: "active"
     field :level, :float, default: 0.0
 
-    many_to_many :roles, TinyFair.UserRole, join_through: "users_roles"
+    many_to_many :roles, UserRole, join_through: "users_roles", on_replace: :delete
+
+    has_many :products, Product
 
     # being an inviter
     has_many :invites, Invite

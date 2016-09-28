@@ -78,12 +78,19 @@ defmodule TinyFair.Web do
     end
   end
 
+  def aliases do
+    quote do
+      TinyFair.Web.common_aliases
+    end
+  end
+
   defmacro common_aliases do
     quote do
       alias TinyFair.{
         User,
         UserRole,
         Invite,
+        Product,
         Repo
       }
     end
