@@ -1,28 +1,28 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Image url</th>
-      <th>Desc</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for product <- @products do %>
-    <tr>
-      <td><%= product.name %></td>
-      <td><%= product.quantity %></td>
-      <td><%= product.image_url %></td>
-      <td><%= product.desc %></td>
-      <td><%= product.status %></td>
-      <td><%= link "Edit", to: account_product_path(@conn, :edit, product) %></td>
-
-      <td class="text-right">
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
+    <div class="entities-list">
+        <ul>
+            <%= for product <- @products do %>
+                <li>
+                    <div class="entity-card">
+                        <div class="card-image entity-card__block ">
+                            <img alt="card-image" src="<%= product.image_url %>"/>
+                        </div>
+                        <div class="entity-card__block product-name">
+                            <label> Name </label>
+                            <span><%= product.name %></span>
+                        </div>
+                        <div class="entity-card__block product-desc">
+                            <label> Description </label>
+                            <span><%= product.desc %></span>
+                        </div>
+                        <div class="entity-card__block center-items product-status">
+                            <label> Status </label>
+                            <span><%= TinyFair.ProductView.humanize_status(product.status) %></span>
+                        </div>
+                        <div class="card-action-button entity-card__block">
+                            <%= link "Edit", to: account_product_path(@conn, :edit, product), class: "button" %>
+                        </div>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>

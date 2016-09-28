@@ -211,6 +211,7 @@ a {
 }
 
 .entities-list {
+    width: 100%;
     & > ul {
         display: flex;
         flex-direction: column;
@@ -264,8 +265,7 @@ a {
         padding: 0 10px;
     }
 
-    & form {
-        padding: 0;
+    & a {
         margin: 0;
 
         & > input[type="submit"] {

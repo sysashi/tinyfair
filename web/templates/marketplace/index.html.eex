@@ -24,7 +24,7 @@
                             <span><%= product.owner.username %></span>
                         </div>
                         <div class="card-action-button entity-card__block">
-                            <%= button "Order", to: "/", class: "button button-success", form: [class: ""] %>
+                            <%= link "Order", to: "/", class: "button button-success" %>
                         </div>
                     </div>
                 </li>
