@@ -1,4 +1,3 @@
-<h2>Listing products</h2>
 <table class="table">
   <thead>
     <tr>
@@ -7,8 +6,6 @@
       <th>Image url</th>
       <th>Desc</th>
       <th>Status</th>
-      <th>User</th>
-
       <th></th>
     </tr>
   </thead>
@@ -20,7 +17,7 @@
       <td><%= product.image_url %></td>
       <td><%= product.desc %></td>
       <td><%= product.status %></td>
-      <td><%= product.user_id %></td>
+      <td><%= link "Edit", to: account_product_path(@conn, :edit, product) %></td>
 
       <td class="text-right">
       </td>

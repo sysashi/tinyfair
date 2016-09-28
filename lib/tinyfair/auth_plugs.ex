@@ -47,6 +47,7 @@ defmodule TinyFair.AuthPlugs do
   end
 
   defmodule InviteOnly do
+    # TODO: handle current user / user session
     def init(opts \\ []), do: opts
 
     def call(conn, opts) do
@@ -57,7 +58,8 @@ defmodule TinyFair.AuthPlugs do
             |> assign(:invite, invite)
           {false, _invite} ->
             conn
-            |> put_flash(:error, "Oops your token is invalid")
+            |> put_flash(:error, "Oops your invite is no longer valid")
+            |> delete_session(:invite_token)
             |> invalid_token
         end
       else

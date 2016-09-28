@@ -30,7 +30,7 @@
           </div>
         <div class="container usermenu">
             <div class="row">
-                <%= active_path_link &marketplace_path(&1, :show), @conn, class: "column" do %>
+                <%= active_path_link &marketplace_path(&1, :index), @conn, class: "column" do %>
                     <span class="usermenu-item">Marketplace</span>
                 <% end %>
                 <%= link to: "/chat", class: "column" do %>

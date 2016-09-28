@@ -1,0 +1,34 @@
+<div class="marketplace">
+    <div class="entities-list">
+        <ul>
+            <%= for product <- @products do %>
+                <li>
+                    <div class="entity-card">
+                        <div class="card-image entity-card__block ">
+                            <img alt="card-image" src="<%= product.image_url %>"/>
+                        </div>
+                        <div class="entity-card__block product-name">
+                            <label> Name </label>
+                            <span><%= product.name %></span>
+                        </div>
+                        <div class="entity-card__block product-desc">
+                            <label> Description </label>
+                            <span><%= product.desc %></span>
+                        </div>
+                        <div class="entity-card__block center-items product-status">
+                            <label> Status </label>
+                            <span><%= TinyFair.ProductView.humanize_status(product.status) %></span>
+                        </div>
+                        <div class="entity-card__block center-items product-owner">
+                            <label> Seller </label>
+                            <span><%= product.owner.username %></span>
+                        </div>
+                        <div class="card-action-button entity-card__block">
+                            <%= button "Order", to: "/", class: "button button-success", form: [class: ""] %>
+                        </div>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>

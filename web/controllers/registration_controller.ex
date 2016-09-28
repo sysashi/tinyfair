@@ -17,10 +17,11 @@ defmodule TinyFair.RegistrationController do
     end
     changeset = User.registration_changeset(user, registration_params)
     case Repo.insert(changeset) do
-      {:ok, _registration} ->
+      {:ok, new_user} ->
         activate_invite(invite)
         conn
         |> put_flash(:info, "Registration completed successfully.")
+        |> put_session(:user_id, new_user.id)
         |> redirect(to: account_path(conn, :show))
       {:error, changeset} ->
         conn

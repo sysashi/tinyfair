@@ -34,3 +34,8 @@
         text-transform: uppercase;
     }
 }
+
+.button.button-success {
+    background-color: #96b764;
+    border-color: #96b764;
+}

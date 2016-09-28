@@ -20,8 +20,13 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="" href="#">My Products</a>
+                    <%= active_path_link(&account_product_path(&1, :index), @conn, []) do %>
+                        My Products
+                    <% end %>
                     <ul>
+                        <li><%= active_path_link(&account_product_path(&1, :new), @conn, []) do %>
+                        Add new
+                        <% end %></li>
                         <li><a href="#">Now Listed</a></li>
                         <li><a href="#">Stash</a></li>
                     </ul>

@@ -1,8 +1,8 @@
 defmodule TinyFair.MarketplaceController do
   use TinyFair.Web, :controller
 
-  def show(conn, _params) do
-    IO.inspect conn
-    render(conn, "show.html")
+  def index(conn, _params) do
+    products = Product.listed |> Repo.all
+    render(conn, "index.html", products: products)
   end
 end

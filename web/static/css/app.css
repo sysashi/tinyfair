@@ -97,11 +97,11 @@ header {
 }
 
 .center-form {
+    min-width: 333px;
     flex: 0 0 400px;
     @media (--small-screen) {
         flex: 1;
     }
-    margin-top: 2rem;
 }
 
 footer {
@@ -202,4 +202,87 @@ a {
 .account-wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.marketplace {
+    width: 100%;
+}
+
+.entities-list {
+    & > ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        & > li {
+            flex: 1;
+        }
+    }
+}
+
+.entity-card {
+    flex: 1;
+    display: flex;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    padding: 10px 20px;
+    line-height: 1;
+
+    & .entity-card__block {
+        flex: 1;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        & > span {
+            margin-bottom: auto;            
+            font-size: 1.4rem;
+            color: #444;
+        }
+
+        & > label {
+            font-size: 10px; 
+            margin-bottom: auto;
+            color: #999;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        &.center-items {
+             align-items: center;
+        }
+    }
+
+    & .card-image {
+        flex: 0 0 50px;
+    }
+
+    & .card-action-button {
+        flex: 0;
+        padding: 0 10px;
+    }
+
+    & form {
+        padding: 0;
+        margin: 0;
+
+        & > input[type="submit"] {
+            margin: 0;
+        }
+    }
+}
+
+
+
+.card-image {
+    margin-right: 20px;
+    & > img {
+    } 
+}
+
+/* Product marketplace listing view */
+.product-desc {
+    font-size: 1.4rem;
 }

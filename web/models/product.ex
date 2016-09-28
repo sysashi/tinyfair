@@ -21,6 +21,36 @@ defmodule TinyFair.Product do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :quantity, :image_url, :desc, :status])
-    |> validate_required([:name, :quantity, :image_url, :desc, :status])
+    |> validate_number(:quantity, greater_than_or_equal_to: 0)
+  end
+
+  def update_changeset(struct, params \\ %{}) do
+    struct
+    |> changeset(params)
+  end
+
+  def create_changeset(struct, params \\ %{}) do
+    struct
+    |> changeset(params)
+    |> validate_required([:name, :desc])
+    |> validate_format(:name, ~r/^[a-z0-9_\-\.!~\*'\(\)]+$/)
+  end
+
+  # status should be in [:instock, :outstock]
+  # user(owner) should not be banned
+  # it should not be deleted
+  def listed do
+    from(p in all(), where: p.status in ["instock", "outstock"])
+    |> owner_is_active
+  end
+
+  def all do
+    from(p in Product, where: is_nil(p.deleted_at))
+  end
+
+  defp owner_is_active(query) do
+    from(p in query, join: o in assoc(p, :owner),
+      where: o.status == "active",
+      preload: [owner: o])
   end
 end

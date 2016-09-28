@@ -40,6 +40,7 @@ defmodule TinyFair.Router do
 
     resources "/account", AccountController, singleton: true,
       only: [:show] do
+      resources "/products", ProductController, except: [:show]
 
       # Edit user contacts
       get "/contacts", Account.UserController, :contacts, as: "contacts"
@@ -52,10 +53,7 @@ defmodule TinyFair.Router do
       post "/settings", Account.UserController, :update_settings, as: "settings"
     end
 
-    resources "/marketplace", MarketplaceController, singleton: true, only: [:show] do
-      resources "/products", ProductController,
-        only: [:index]
-    end
+    get "/marketplace", MarketplaceController, :index
   end
 
   scope "/", TinyFair do
