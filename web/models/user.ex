@@ -64,6 +64,5 @@ defmodule TinyFair.User do
     changeset
     |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(password))
   end
-
   defp hash_password(changeset), do: changeset
 end

@@ -6,14 +6,12 @@ defmodule TinyFair.SessionController do
   Rate limit |
   Throttle   |  - > everything
   """
-
   use TinyFair.Web, :controller
-
   import TinyFair.AuthHelper
-
   alias TinyFair.Session
 
   plug :scrub_params, "session" when action == :create
+  plug :put_layout, "clean.html"
 
   # Show login form
   def new(conn, _params) do

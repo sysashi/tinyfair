@@ -22,7 +22,7 @@
                 <li>
                     <a class="" href="#">My Products</a>
                     <ul>
-                        <li><a href="#">Add a new product</a></li>
+                        <li><a href="#">Now Listed</a></li>
                         <li><a href="#">Stash</a></li>
                     </ul>
                 </li>
@@ -33,24 +33,24 @@
                         <li><a href="#">History</a></li>
                     </ul>
                 </li>
-                <li><a href="#">All History</a></li>
-                <li><a href="#">Summary</a></li>
             </ul>
             <p class="menu-label">
-                My Account
+               My Account
             </p>
             <ul class="menu-list">
-                <li><%= TinyFair.LayoutView.active_path_link(&account_contacts_path(&1, :contacts), @conn, []) do %>
-                    Contacts!
-                    <% end %>
-                </li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Contacts</a></li>
+                <li><%= active_path_link(&account_contacts_path(&1, :contacts), @conn, []) do %>
+                    Contacts
+                    <% end %></li>
+                <li><%= active_path_link(&account_settings_path(&1, :settings), @conn, []) do %>
+                    Settings
+                    <% end %></li>
             </ul>
         </div>
 
     </div>
     <div class="column column-70">
+        <div class="account-wrapper">
         <%= render(@view_module, @view_template, assigns) %>
+        </div>
     </div>
 </div>

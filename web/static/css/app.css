@@ -155,9 +155,6 @@ footer {
 }
 
 .menu {
-    & a {
-        font-size: 1.3rem;
-    }
     & ul {
         list-style: none;
     }
@@ -171,7 +168,6 @@ footer {
     & .menu-label {
         margin: 0 0 4px 0;
         color: #7a7a7a;
-        font-size: 11px;
         letter-spacing: 1px;
         text-transform: uppercase;
     }
@@ -194,10 +190,16 @@ footer {
 
     }
 }
+
 a {
     color: #11e4c4;
     cursor: pointer;
     text-decoration: none;
     -webkit-transition: none 86ms ease-out;
     transition: none 86ms ease-out;
+}
+
+.account-wrapper {
+    display: flex;
+    justify-content: center;
 }

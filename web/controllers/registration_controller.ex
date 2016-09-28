@@ -21,7 +21,7 @@ defmodule TinyFair.RegistrationController do
         activate_invite(invite)
         conn
         |> put_flash(:info, "Registration completed successfully.")
-        |> redirect(to: "/")
+        |> redirect(to: account_path(conn, :show))
       {:error, changeset} ->
         conn
         # |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
