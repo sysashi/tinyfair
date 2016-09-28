@@ -41,7 +41,7 @@ defmodule TinyFair.Mixfile do
      {:comeonin, "~> 2.5"},
      {:ex_machina, "~> 1.0"},
      {:identicon, github: "rbishop/identicon"},
-     {:arc, "~> 0.5.2"},
+     {:arc, github: "stavro/arc", override: true},
      {:arc_ecto, "~> 0.4.4"}]
 
   end
