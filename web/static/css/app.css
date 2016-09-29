@@ -229,6 +229,7 @@ a {
     border-radius: 2px;
     padding: 10px 20px;
     line-height: 1;
+    word-break: break-all;
 
     & .entity-card__block {
         flex: 1;
@@ -236,10 +237,11 @@ a {
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        line-height: 1.33;
 
         & > span {
             margin-bottom: auto;            
-            font-size: 1.4rem;
+            font-size: 13px;
             color: #444;
         }
 
@@ -267,10 +269,6 @@ a {
 
     & a {
         margin: 0;
-
-        & > input[type="submit"] {
-            margin: 0;
-        }
     }
 }
 
@@ -278,11 +276,19 @@ a {
 
 .card-image {
     margin-right: 20px;
+
     & > img {
+        height: 50px;
+        width: 50px;
+        image-rendering: pixelated;
     } 
 }
 
 /* Product marketplace listing view */
+.product-name {
+    /* font-weight: bold; */
+}
 .product-desc {
     font-size: 1.4rem;
+    font-style: italic;
 }

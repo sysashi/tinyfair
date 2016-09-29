@@ -57,6 +57,7 @@ defmodule TinyFair.Web do
       import TinyFair.ErrorHelpers
       import TinyFair.Gettext
 
+      import TinyFair.ViewHelpers
       TinyFair.Web.common_aliases
     end
   end

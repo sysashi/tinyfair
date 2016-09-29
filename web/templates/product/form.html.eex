@@ -12,12 +12,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :image_url, class: "control-label" %>
-    <%= text_input f, :image_url, class: "form-control" %>
-    <%= error_tag f, :image_url %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :desc, class: "control-label" %>
     <%= text_input f, :desc, class: "form-control" %>
     <%= error_tag f, :desc %>

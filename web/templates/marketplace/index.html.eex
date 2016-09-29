@@ -5,7 +5,7 @@
                 <li>
                     <div class="entity-card">
                         <div class="card-image entity-card__block ">
-                            <img alt="card-image" src="<%= product.image_url %>"/>
+                            <img alt="card-image" src="<%= image_url(product, :image_url) %>"/>
                         </div>
                         <div class="entity-card__block product-name">
                             <label> Name </label>
@@ -17,7 +17,7 @@
                         </div>
                         <div class="entity-card__block center-items product-status">
                             <label> Status </label>
-                            <span><%= TinyFair.ProductView.humanize_status(product.status) %></span>
+                            <span><%= humanize_status(product.status) %></span>
                         </div>
                         <div class="entity-card__block center-items product-owner">
                             <label> Seller </label>
