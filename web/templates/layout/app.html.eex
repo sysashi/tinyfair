@@ -20,9 +20,6 @@
                 </div>
                 <nav role="navigation" class="main-layout-nav">
                     <ul class="main-layout-topmenu">
-                        <%= if assigns[:current_user] do %>
-                          <li><a href="/session">Logout</a></li>
-                        <% end %>
                     </ul>
                 </nav>
               </div>
@@ -56,6 +53,10 @@
     <footer>
         <div class="container">
             <div class="row">
+                <%= if assigns[:current_user] do %>
+                    <%= link "Logout", to: session_path(@conn, :delete),
+                    class: "logout footer-section" %>
+                <% end %>
                 <a href="/faq" class="footer-section">
                     FAQ
                 </a>

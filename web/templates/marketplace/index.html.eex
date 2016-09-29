@@ -13,7 +13,8 @@
                         </div>
                         <div class="entity-card__block product-desc">
                             <label> Description </label>
-                            <span><%= product.desc %></span>
+
+                            <span><%= product.desc |> dotify(70) %></span>
                         </div>
                         <div class="entity-card__block center-items product-status">
                             <label> Status </label>

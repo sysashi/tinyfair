@@ -1,6 +1,17 @@
 defmodule TinyFair.ViewHelpers do
   @moduledoc false
 
+  def dotify(string, max_length \\ 140) when
+      is_integer(max_length) and max_length > 0 do
+    str = String.slice(string, 0, max_length)
+    len = String.length(str)
+    if max_length - len <= 3 do
+       String.pad_trailing(str, max_length + 3, ".")
+    else
+      string
+    end
+  end
+
   @priv_prefix "/priv/static"
   def image_url(string) when is_binary(string), do: string
   def image_url(%struct_mod{} = struct, field) when is_atom(field) do

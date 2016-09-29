@@ -35,6 +35,10 @@
     }
 }
 
+label {
+    font-size: 1.4rem;
+}
+
 .button.button-success {
     background-color: #96b764;
     border-color: #96b764;

@@ -116,11 +116,8 @@ footer {
     }
 
     & a.footer-section {
-       /* border-right: 1px dashed #ddd; */
-        border-top: 1px dashed #dccaca;
-        background: #eee;
+        /* border-top: 1px solid #dccaca; */
         font-weight: bold;
-
         &:hover {
             border-color: #ae9999;
             background: #dff;
@@ -130,9 +127,17 @@ footer {
 
     & .footer-section {
         flex: 0 0 100px;
-        padding: 10px 20px;
+        padding: 5px 20px;
         text-align: center;
 
+        &.logout {
+            margin-right: auto;
+            background: #d48985;
+            color: #fff;
+            &:hover {
+                background: #e04c44;
+            }
+        }
 
         & > a , & > span {
             display: inline-block;
@@ -184,10 +189,16 @@ footer {
         }
 
         &.is-active {
-            background-color: #11e4c4;
+            font-weight: 400;
+            background-color: #eee;
+        }
+    }
+
+    & .menu-list > li > a {
+        &.is-active {
+            background-color: #aba3f6;
             color: white;
         }
-
     }
 }
 
