@@ -5,6 +5,7 @@ defmodule TinyFair.AccountController do
   plug :put_child_layout, {TinyFair.LayoutView, "account.html"}
 
   def show(conn, _params) do
-    render(conn, "show.html")
+    current_user = conn.assigns.current_user
+    render(conn, "show.html", user: current_user)
   end
 end
