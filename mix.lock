@@ -1,5 +1,6 @@
 %{"arc": {:git, "https://github.com/stavro/arc.git", "81a785882a984c638222fa586ea964a3299ace1b", []},
   "arc_ecto": {:git, "https://github.com/stavro/arc_ecto.git", "d4a901b6914e3f43d9e5606426953bc04d0c6962", []},
+  "authorize": {:hex, :authorize, "0.1.1", "b11a54a1e2533e38cc061e6513b62686bf2957b0b4c649d7daac2eb021e38ca7", [:mix], []},
   "comeonin": {:hex, :comeonin, "2.5.3", "ccd70ebf465eaf4e11fc5a13fd0f5be2538b6b4975d4f7a13d571670b31da060", [:mix, :make, :make], []},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], []},
   "cowboy": {:hex, :cowboy, "1.0.4", "a324a8df9f2316c833a470d918aaf73ae894278b8aa6226ce7a9bf699388f878", [:rebar, :make], [{:cowlib, "~> 1.0.0", [hex: :cowlib, optional: false]}, {:ranch, "~> 1.0", [hex: :ranch, optional: false]}]},

@@ -7,7 +7,7 @@ defmodule TinyFair.SessionController do
   Throttle   |  - > everything
   """
   use TinyFair.Web, :controller
-  import TinyFair.AuthHelper
+  import TinyFair.AuthHelpers
   alias TinyFair.Session
 
   plug :scrub_params, "session" when action == :create

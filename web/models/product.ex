@@ -12,6 +12,7 @@ defmodule TinyFair.Product do
     field :status, :string, default: "stash"
     belongs_to :owner, TinyFair.User, foreign_key: :user_id
 
+    field :delete?, :boolean, virtual: true
     field :deleted_at, Ecto.DateTime
     timestamps()
   end
@@ -42,6 +43,10 @@ defmodule TinyFair.Product do
     |> cast_attachments(params, [:image_url])
   end
 
+  defp all do
+    from(p in Product, where: is_nil(p.deleted_at))
+  end
+
   # status should be in [:instock, :outstock]
   # user(owner) should not be banned
   # it should not be deleted
@@ -50,8 +55,13 @@ defmodule TinyFair.Product do
     |> owner_is_active
   end
 
-  def all do
-    from(p in Product, where: is_nil(p.deleted_at))
+  # FIXME
+  def by_id(id) do
+    from(p in all(), where: p.id == ^id)
+  end
+  # x
+  def with_owner(query) do
+    from(p in query, preload: :owner)
   end
 
   defp owner_is_active(query) do

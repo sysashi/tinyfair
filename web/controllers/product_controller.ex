@@ -5,8 +5,8 @@ defmodule TinyFair.ProductController do
 
   alias TinyFair.Product
 
-  def index(conn, _params, _) do
-    products = Repo.all(Product)
+  def index(conn, _params, current_user) do
+    products = (current_user |> Repo.preload(:products)).products
     render(conn, "index.html", products: products)
   end
 
@@ -29,23 +29,37 @@ defmodule TinyFair.ProductController do
     end
   end
 
-  def edit(conn, %{"id" => id}, _) do
-    product = Repo.get!(Product, id)
-    changeset = Product.update_changeset(product)
-    render(conn, "edit.html", changeset: changeset)
+  def edit(conn, %{"id" => id}, current_user) do
+    product = Product.by_id(id) |> Product.with_owner |> Repo.one!
+    case Product.Authorization.authorize(product, current_user, :update) do
+      {:ok, product} ->
+        changeset = Product.update_changeset(product)
+        render(conn, "edit.html", changeset: changeset)
+      any ->
+        # FIXME
+        IO.inspect any
+        TinyFair.AuthHelpers.to_devnull(conn)
+    end
   end
 
-  def update(conn, %{"id" => id, "product" => product_params}, _) do
-    product = Repo.get!(Product, id)
-    changeset = Product.update_changeset(product, product_params)
-    case Repo.update(changeset) do
+  def update(conn, %{"id" => id, "product" => product_params}, current_user) do
+    product = Product.by_id(id) |> Product.with_owner |> Repo.one!
+    case Product.Authorization.authorize(product, current_user, :update) do
       {:ok, product} ->
-        conn
-        |> put_flash(:info, "Product was updated")
-        |> render("edit.html", changeset: changeset)
-      {:error, changeset} ->
-        conn
-        |> render("edit.html", changeset: changeset)
+        changeset = Product.update_changeset(product, product_params)
+        case Repo.update(changeset) do
+          {:ok, product} ->
+            conn
+            |> put_flash(:info, "Product was updated")
+            |> render("edit.html", changeset: changeset)
+          {:error, changeset} ->
+            conn
+            |> render("edit.html", changeset: changeset)
+        end
+      any ->
+        # FIXME
+        IO.inspect any
+        TinyFair.AuthHelpers.to_devnull(conn)
     end
   end
 

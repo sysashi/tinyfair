@@ -92,6 +92,8 @@ defmodule TinyFair.Web do
         UserRole,
         Invite,
         Product,
+        ProductImage,
+        Product.Authorization,
         Repo
       }
     end

@@ -3,24 +3,13 @@ defmodule TinyFair.AuthPlugs do
   import Phoenix.Controller, only: [put_view: 2, put_flash: 3, redirect: 2, render: 2]
   import TinyFair.InviteHelper
 
-  def user_status(user_id) do
-    if user = TinyFair.Repo.get(TinyFair.User, user_id) do
-      case user do
-        %{status: "banned"} = user ->
-          {:banned, user}
-        user -> {:ok, user}
-      end
-    else
-      {:not_existing, user_id}
-    end
-  end
-
   defmodule UserOnly do
+    import TinyFair.AuthHelpers
     def init(opts \\ []), do: opts
 
     def call(conn, opts) do
       if user_id = get_session(conn, :user_id) do
-        case TinyFair.AuthPlugs.user_status(user_id) do
+        case user_status(user_id) do
           {:ok, user} ->
             conn
             |> assign(:current_user, user)
@@ -37,12 +26,17 @@ defmodule TinyFair.AuthPlugs do
       end
     end
 
-    defp to_devnull(conn) do
-     conn
-     |> put_view(TinyFair.ErrorView)
-     |> put_status(:not_found)
-     |> render("404.html")
-     |> halt()
+    # FIXME
+    defp user_status(user_id) do
+      if user = TinyFair.Repo.get(TinyFair.User, user_id) do
+        case user do
+          %{status: "banned"} = user ->
+            {:banned, user}
+          user -> {:ok, user}
+        end
+      else
+        {:not_existing, user_id}
+      end
     end
   end
 
