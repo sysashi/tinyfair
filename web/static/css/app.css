@@ -196,8 +196,8 @@ footer {
 
     & .menu-list > li > a {
         &.is-active {
-            background-color: #aba3f6;
-            color: white;
+            background-color: #dff;
+            color: #695a5a;
         }
     }
 }
@@ -240,7 +240,7 @@ a {
     border-radius: 2px;
     padding: 10px 20px;
     line-height: 1;
-    word-break: break-all;
+    word-break: break-word;
 
     & .entity-card__block {
         flex: 1;
@@ -254,6 +254,8 @@ a {
             margin-bottom: auto;            
             font-size: 13px;
             color: #444;
+            word-wrap: break-word;
+            word-break: break-all;
         }
 
         & > label {

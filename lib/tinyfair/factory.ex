@@ -11,9 +11,7 @@ defmodule TinyFair.Factory do
   def product_factory do
     %TinyFair.Product{
       name: sequence(:name, &"Product-#{&1}"),
-      desc: "This is awesome product! I swear!",
-      owner: build(:user),
-      image_url: "http://placehold.it/50x50"
+      desc: "This is awesome product! I swear!"
     }
   end
 end

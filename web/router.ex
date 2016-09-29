@@ -40,6 +40,7 @@ defmodule TinyFair.Router do
 
     resources "/account", AccountController, singleton: true,
       only: [:show] do
+      get "/products/stash", ProductController, :stash
       resources "/products", ProductController, except: [:show]
 
       # Edit user contacts
