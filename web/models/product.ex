@@ -43,31 +43,31 @@ defmodule TinyFair.Product do
     |> cast_attachments(params, [:image_url])
   end
 
-  defp all do
-    from(p in Product, where: is_nil(p.deleted_at))
+  def marketplace_entry do
+    available
+    |> can_be_listed
+    |> with_active_owner
   end
 
-  # status should be in [:instock, :outstock]
-  # user(owner) should not be banned
-  # it should not be deleted
-  def listed do
-    from(p in all(), where: p.status in ["instock", "outstock"])
-    |> owner_is_active
+  def available do
+    where(Product, [p], is_nil(p.deleted_at))
   end
 
-  # FIXME
-  def by_id(id) do
-    from(p in all(), where: p.id == ^id)
+  def can_be_listed(query)do
+    where(query, [p], p.status in ["instock", "outstock"])
   end
-  # x
+
+  def in_stash(query) do
+    where(query, status: "stash")
+  end
+
   def with_owner(query) do
-    from(p in query, preload: :owner)
+    preload(query, :owner)
   end
 
-  defp owner_is_active(query) do
-    from(p in query, join: o in assoc(p, :owner),
-      where: o.status == "active",
-      preload: [owner: o])
+  def with_active_owner(query) do
+    from(p in with_owner(query), join: o in assoc(p, :owner),
+      where: o.status == "active")
   end
 
   def maybe_put_image(params) do

@@ -6,7 +6,11 @@ defmodule TinyFair.ProductController do
   alias TinyFair.Product
 
   def index(conn, _params, current_user) do
-    products = (current_user |> Repo.preload(:products)).products
+    render(conn, "index.html", products: current_user.products)
+  end
+
+  def stash(conn, _params, current_user) do
+    products = current_user.products |> Enum.reject(& &1.status != "stash")
     render(conn, "index.html", products: products)
   end
 
@@ -43,7 +47,7 @@ defmodule TinyFair.ProductController do
   end
 
   def update(conn, %{"id" => id, "product" => product_params}, current_user) do
-    product = Product.by_id(id) |> Product.with_owner |> Repo.one!
+    product = Product.available |> Product.with_owner |> Repo.get!(id)
     case Product.Authorization.authorize(product, current_user, :update) do
       {:ok, product} ->
         changeset = Product.update_changeset(product, product_params)
@@ -63,8 +67,13 @@ defmodule TinyFair.ProductController do
     end
   end
 
+  # TODO
+  def authorize_owner(conn, opts) do
+  end
+
   def action(conn, _) do
+    user = conn.assigns.current_user |> Repo.preload(:products)
     apply(__MODULE__, action_name(conn),
-      [conn, conn.params, conn.assigns.current_user])
+      [conn, conn.params, user])
   end
 end
