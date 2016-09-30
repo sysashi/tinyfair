@@ -10,14 +10,9 @@ defmodule TinyFair.RegistrationController do
 
   def create(conn, %{"user" => registration_params}) do
     invite = extract_invite(conn)
-    user = if invite do
-      Ecto.build_assoc(invite, :invitee)
-    else
-      %User{}
-    end
-    changeset = User.registration_changeset(user, registration_params)
-    case Repo.insert(changeset) do
+    case UserHelpers.new_user(registration_params, invite) do
       {:ok, new_user} ->
+        # TODO: Use Ecto.Multi
         activate_invite(invite)
         conn
         |> put_flash(:info, "Registration completed successfully.")

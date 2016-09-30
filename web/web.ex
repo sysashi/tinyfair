@@ -90,6 +90,7 @@ defmodule TinyFair.Web do
       alias TinyFair.{
         User,
         UserRole,
+        UserPermission,
         Invite,
         Product,
         ProductImage,

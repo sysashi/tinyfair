@@ -24,10 +24,12 @@
                         My Products
                     <% end %>
                     <ul>
-                        <li><%= active_path_link(&account_product_path(&1, :new), @conn, []) do %>
+                       <li><%= active_path_link(&account_product_path(&1, :new), @conn, []) do %>
                             ➕ Add new
                         <% end %></li>
-                        <li><a href="#">📦&nbsp;Stash</a></li>
+                       <li><%= active_path_link(&account_product_path(&1, :stash), @conn, []) do %>
+                            📦 Stash
+                        <% end %></li>
                     </ul>
                 </li>
                 <li>

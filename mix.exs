@@ -43,7 +43,8 @@ defmodule TinyFair.Mixfile do
      {:identicon, github: "rbishop/identicon"},
      {:arc, github: "stavro/arc", override: true},
      {:arc_ecto, github: "stavro/arc_ecto"},
-     {:authorize, "~> 0.1.0"}]
+     {:authorize, "~> 0.1.0"},
+     {:ecto, "~> 2.1.0-rc.0", override: true}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

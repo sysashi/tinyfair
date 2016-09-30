@@ -3,7 +3,7 @@ defmodule TinyFair.Repo.Migrations.AddUserRoles do
 
   def change do
     create table(:user_roles) do
-      add :rolename, :string
+      add :rolename, :string, null: false
     end
 
     create unique_index(:user_roles, [:rolename])

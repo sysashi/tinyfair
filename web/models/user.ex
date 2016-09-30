@@ -57,7 +57,14 @@ defmodule TinyFair.User do
     |> validate_length(:password, min: 6)
     |> validate_format(:username, ~r/^[a-z0-9_\-\.!~\*'\(\)]+$/)
     |> unique_constraint(:username)
+    |> cast_assoc(:roles, required: true)
     |> hash_password()
+  end
+
+  def set_roles(struct, roles) do
+    struct
+    |> changeset
+    |> put_assoc(:roles, roles)
   end
 
   defp hash_password(%Ecto.Changeset{valid?: true} = changeset) do

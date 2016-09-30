@@ -1,0 +1,6 @@
+<p>id:
+    <%= @user.id %></p>
+
+<p>username:
+<%= @user.username %></p>
+
