@@ -18,7 +18,7 @@ defmodule TinyFair.User.Permissions.Helpers do
   defp create_permission(name, permission) do
     quote do
       def unquote(name)(user) do
-        user_perms = user.role.permissions
+        user_perms = unpack_permissions(user.roles)
         if unquote(permission) in user_perms do
           true
         else
@@ -32,6 +32,14 @@ defmodule TinyFair.User.Permissions.Helpers do
     create_permission(name, permission)
   end
 
+  def unpack_permissions(roles) do
+    roles
+    |> Enum.flat_map(fn role ->
+      role.permissions
+      # TODO FIXME
+      |> Enum.map(&(String.to_atom(&1.permission)))
+    end)
+  end
 
   defp create_helpers do
     quote do

@@ -10,7 +10,7 @@ defmodule TinyFair.RegistrationController do
 
   def create(conn, %{"user" => registration_params}) do
     invite = extract_invite(conn)
-    case UserHelpers.new_user(registration_params, invite) do
+    case TinyFair.UserHelpers.new_user(registration_params, invite) do
       {:ok, new_user} ->
         # TODO: Use Ecto.Multi
         activate_invite(invite)

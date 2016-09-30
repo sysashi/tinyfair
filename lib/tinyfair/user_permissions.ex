@@ -4,8 +4,7 @@ defmodule TinyFair.User.Permissions do
   # User can
   @permissions [
     :can_sell_products,
-    :can_create_orders,
-    :can_place_orders,
+    :can_buy_products,
     :can_use_chat,
   ]
 

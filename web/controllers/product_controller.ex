@@ -2,6 +2,7 @@ defmodule TinyFair.ProductController do
   use TinyFair.Web, :controller
 
   plug :put_child_layout, {TinyFair.LayoutView, "account.html"}
+  plug Product.Authorization.Plug
 
   alias TinyFair.Product
 
@@ -33,42 +34,22 @@ defmodule TinyFair.ProductController do
     end
   end
 
-  def edit(conn, %{"id" => id}, current_user) do
-    product = Product.by_id(id) |> Product.with_owner |> Repo.one!
-    case Product.Authorization.authorize(product, current_user, :update) do
-      {:ok, product} ->
-        changeset = Product.update_changeset(product)
-        render(conn, "edit.html", changeset: changeset)
-      any ->
-        # FIXME
-        IO.inspect any
-        TinyFair.AuthHelpers.to_devnull(conn)
-    end
+  def edit(conn, _params, current_user) do
+    changeset = Product.update_changeset(conn.assigns.product)
+    render(conn, "edit.html", changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "product" => product_params}, current_user) do
-    product = Product.available |> Product.with_owner |> Repo.get!(id)
-    case Product.Authorization.authorize(product, current_user, :update) do
+  def update(conn, %{"product" => product_params}, current_user) do
+    changeset = Product.update_changeset(conn.assigns.product, product_params)
+    case Repo.update(changeset) do
       {:ok, product} ->
-        changeset = Product.update_changeset(product, product_params)
-        case Repo.update(changeset) do
-          {:ok, product} ->
-            conn
-            |> put_flash(:info, "Product was updated")
-            |> render("edit.html", changeset: changeset)
-          {:error, changeset} ->
-            conn
-            |> render("edit.html", changeset: changeset)
-        end
-      any ->
-        # FIXME
-        IO.inspect any
-        TinyFair.AuthHelpers.to_devnull(conn)
+        conn
+        |> put_flash(:info, "Product was updated")
+        |> render("edit.html", changeset: changeset)
+      {:error, changeset} ->
+        conn
+        |> render("edit.html", changeset: changeset)
     end
-  end
-
-  # TODO
-  def authorize_owner(conn, opts) do
   end
 
   def action(conn, _) do
