@@ -61,6 +61,10 @@ defmodule TinyFair.User do
     |> hash_password()
   end
 
+  def with_roles(query) do
+    preload(query, roles: :permissions)
+  end
+
   def set_roles(struct, roles) do
     struct
     |> changeset

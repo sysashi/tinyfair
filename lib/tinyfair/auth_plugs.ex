@@ -1,4 +1,5 @@
 defmodule TinyFair.AuthPlugs do
+  use TinyFair.Web, :aliases
   import Plug.Conn
   import Phoenix.Controller, only: [put_view: 2, put_flash: 3, redirect: 2, render: 2]
   import TinyFair.InviteHelper
@@ -28,11 +29,12 @@ defmodule TinyFair.AuthPlugs do
 
     # FIXME
     defp user_status(user_id) do
-      if user = TinyFair.Repo.get(TinyFair.User, user_id) do
+      if user = User |> User.with_roles |> Repo.get(user_id) do
         case user do
           %{status: "banned"} = user ->
             {:banned, user}
-          user -> {:ok, user}
+          user ->
+            {:ok, user}
         end
       else
         {:not_existing, user_id}

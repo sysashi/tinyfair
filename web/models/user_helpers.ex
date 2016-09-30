@@ -5,26 +5,31 @@ defmodule TinyFair.UserHelpers do
   use TinyFair.Web, :aliases
 
   def new_user(registration_params, invite \\ nil) do
+    default_role = [:user] |> maybe_map_atoms |> load_roles |> Repo.one!
     user = if invite do
       Ecto.build_assoc(invite, :invitee)
     else
       %User{}
     end
-    default_registration_role = [:user] |> map_atoms |> load_roles |> Repo.all
-    User.registration_changeset(user, registration_params)
-    |> User.set_roles(default_registration_role)
+    User.registration_changeset(%{user | roles: [default_role]}, registration_params)
     |> Repo.insert
   end
 
-  def load_roles(list) do
+  def roles(list) do
+    list
+    |> maybe_map_atoms
+    |> load_roles
+  end
+
+  defp load_roles(list) do
     where(UserRole, [r], r.rolename in ^list)
   end
 
-  def load_permissions(list) do
+  defp load_permissions(list) do
     where(UserPermission, [p], p.permission in ^list)
   end
 
-  defp map_atoms(list) do
+  defp maybe_map_atoms(list) do
     list = list |>
     Enum.map(fn
       p when is_atom(p) -> Atom.to_string(p)
