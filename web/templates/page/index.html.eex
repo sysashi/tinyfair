@@ -1,5 +1,6 @@
-<h1> Hello </h1>
-<p> Unfortunately, this website is closed at the moment.
-    And might only be accessed by using an invite. <p>
-
-    <p> <em> If you are looking for invite start from here :) </em> </p>
+<h1> <%= link "Hello, Stranger!", to: session_path(@conn, :new) %></h1>
+<p>Unfortunately, this website is closed at the moment,
+and might only be accessed by using an invite.</p>
+<p><em> If you are looking for invite you cat start from
+     <%= link "here", to: invite_path(@conn, :invite_rules) %>:)</em></p>
+<p style="color: #aaa; font-size: 80%;">In case you already have one you can activate it  <%= link "here", to: invite_path(@conn, :activation_page) %>.</p>

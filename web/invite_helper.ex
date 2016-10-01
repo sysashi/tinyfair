@@ -22,10 +22,10 @@ defmodule TinyFair.InviteHelper do
     end
   end
 
-  def build(user, params, valid_for \\ @valid_for) do
+  def build(user, params \\ %{}, valid_for \\ @valid_for) do
     invite =
       Ecto.build_assoc(user, :invites)
-      |> Invite.create_changeset
+      |> Invite.create_changeset(params)
       |> Repo.insert!
 
     expiry_date = time_add(Ecto.DateTime.utc, valid_for)
