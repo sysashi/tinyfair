@@ -1,9 +1,10 @@
+<% is_owner? = fn product, user -> user.id == product.owner.id end  %>
 <div class="marketplace">
     <div class="entities-list">
         <ul>
             <%= for product <- @products do %>
                 <li>
-                    <div class="entity-card">
+                    <div class="entity-card ">
                         <div class="card-image entity-card__block ">
                             <img alt="card-image" src="<%= image_url(product, :image_url) %>"/>
                         </div>
@@ -22,11 +23,19 @@
                         </div>
                         <div class="entity-card__block center-items product-owner">
                             <label> Seller </label>
-                            <span><%= product.owner.username %></span>
+                            <%= if is_owner?.(product, @current_user) do %>
+                                <span><em><strong>(You)</strong></em></span>
+                            <% else  %>
+                                <span><a href="#"><%= product.owner.username %></a></span>
+                            <% end %>
                         </div>
+                        <%= if User.Permissions.to_buy_products?(@current_user) do %>
                         <div class="card-action-button entity-card__block">
-                            <%= link "Order", to: "/", class: "button button-success" %>
+                            <%= link "Get", to: product_order_path(@conn, :new, product),
+                            class: "button button-success \
+                            #{if is_owner?.(product, @current_user), do: "button-disabled"}" %>
                         </div>
+                        <% end %>
                     </div>
                 </li>
             <% end %>

@@ -1,0 +1,10 @@
+<div class="center-form">
+<h2>New order</h2>
+<%  action =  product_order_path(@conn, :create, @product) %>
+<%= form_for @changeset, action, fn f -> %>
+    <%= label f, :amount %>
+    <%= number_input f, :amount, min: 1 %>
+    <%= error_tag f, :amount %>
+    <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>
+</div>

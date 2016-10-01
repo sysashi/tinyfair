@@ -1,0 +1,7 @@
+<%= form_for @changeset, @action, fn f -> %>
+    <%= label f, :quantity %>
+    <%= number_input f, :quantity, min: 1 %>
+    <%= error_tag f, :quantity %>
+
+    <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

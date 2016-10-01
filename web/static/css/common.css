@@ -41,3 +41,9 @@ label {
     background-color: #96b764;
     border-color: #96b764;
 }
+
+.button.button-disabled {
+    pointer-events: none;
+    background: #999;
+    border-color: #999;
+}

@@ -10,7 +10,8 @@ defmodule TinyFair.Product do
     field :image_url, TinyFair.ProductImage.Type
     field :desc, :string
     field :status, :string, default: "stash"
-    belongs_to :owner, TinyFair.User, foreign_key: :user_id
+    belongs_to :owner, User, foreign_key: :user_id
+    many_to_many :orders, Order, join_through: "products_orders" 
 
     field :delete?, :boolean, virtual: true
     field :deleted_at, Ecto.DateTime
@@ -27,6 +28,7 @@ defmodule TinyFair.Product do
     |> validate_format(:name, ~r/^[a-zA-Z0-9_\-\.!~\*'\(\)\ ]+$/)
     |> validate_length(:name, min: 4, max: 20)
     |> validate_length(:desc, max: 140)
+    |> validate_inclusion(:status, @avaialable_statuses)
     |> assoc_constraint(:owner)
   end
 
@@ -41,6 +43,18 @@ defmodule TinyFair.Product do
     |> changeset(params)
     |> validate_required([:name, :desc])
     |> cast_attachments(params, [:image_url])
+  end
+
+  def place_order(product, nil) do
+    product
+    |> update_changeset
+    |> cast_assoc(:orders)
+  end
+
+  def place_order(product, order) do
+    product
+    |> update_changeset
+    |> put_assoc(:orders, product.orders ++ [order])
   end
 
   def marketplace_entry do
@@ -63,6 +77,10 @@ defmodule TinyFair.Product do
 
   def with_owner(query) do
     preload(query, :owner)
+  end
+
+  def with_orders(query) do
+    preload(query, :orders)
   end
 
   def with_active_owner(query) do

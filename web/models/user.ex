@@ -18,6 +18,7 @@ defmodule TinyFair.User do
     many_to_many :roles, UserRole, join_through: "users_roles", on_replace: :delete
 
     has_many :products, Product
+    has_many :orders, Order
 
     # being an inviter
     has_many :invites, Invite

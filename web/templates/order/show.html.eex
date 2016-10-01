@@ -1,0 +1,23 @@
+<h2>Show order</h2>
+
+<ul>
+
+  <li>
+    <strong>Quantity:</strong>
+    <%= @order.quantity %>
+  </li>
+
+  <li>
+    <strong>Expiry:</strong>
+    <%= @order.expiry %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @order.status %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: order_path(@conn, :edit, @order) %>
+<%= link "Back", to: order_path(@conn, :index) %>

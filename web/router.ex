@@ -26,6 +26,8 @@ defmodule TinyFair.Router do
 
     get "/", PageController, :index
 
+    resources "/orders", OrderController
+
     resources "/session", SessionController, singleton: true,
       only: [:new, :create, :delete]
     get "/session", SessionController, :delete # handy logout
@@ -38,9 +40,30 @@ defmodule TinyFair.Router do
   scope "/", TinyFair do
     pipe_through [:browser, :user_only] # Use the default browser stack
 
+   # scope "/account" do
+
+   #   # TODO merege below two scopes
+   #   scope "/contacts" do
+   #     get "/", AccountController, :contacts
+   #     put "/", AccountController, :update_contacts
+   #     post "/", AccountController, :update_contacts
+   #   end
+
+   #   scope "/settings" do
+   #     get "/", AccountController, :settings
+   #     put "/", AccountController, :update_settings
+   #     post "/", AccountController, :update_settings
+   #   end
+
+   #   resources "/products", ProductController, except: [:show] do
+   #     get "/stash", ProductController, :stash
+   #   end
+   # end
+
     resources "/account", AccountController, singleton: true,
       only: [:show] do
-      get "/products/stash", ProductController, :stash
+
+      get "/products/stash", ProductController, :stash, as: :product
       resources "/products", ProductController, except: [:show]
 
       # Edit user contacts
@@ -54,7 +77,15 @@ defmodule TinyFair.Router do
       post "/settings", Account.UserController, :update_settings, as: "settings"
     end
 
-    get "/marketplace", MarketplaceController, :index
+    scope "/marketplace" do
+      get "/", MarketplaceController, :index
+
+      scope "/products", Marketplace, as: "product" do
+        get "/:id/get", OrderController, :new
+        post "/:id/order", OrderController, :create
+        put "/:id/order", OrderController, :create
+      end
+    end
   end
 
   scope "/", TinyFair do

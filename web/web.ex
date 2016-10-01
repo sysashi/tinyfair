@@ -95,6 +95,7 @@ defmodule TinyFair.Web do
         Product,
         ProductImage,
         Product.Authorization,
+        Order,
         Repo
       }
     end
