@@ -9,6 +9,7 @@ defmodule TinyFair.Order do
     field :expiry, :utc_datetime
     belongs_to :issuer, User, foreign_key: :user_id
     embeds_one :extra_fees, Order.ExtraFees
+    many_to_many :products, Product, join_through: "products_orders"
     timestamps()
   end
 

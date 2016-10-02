@@ -253,7 +253,6 @@ a {
         & > span {
             margin-bottom: auto;            
             font-size: 13px;
-            color: #444;
             word-wrap: break-word;
             word-break: break-all;
         }
@@ -303,4 +302,14 @@ a {
 }
 .product-desc {
     flex: 1;
+}
+.product-status {
+    & > span {
+        background: #d7fbd7;
+        padding: 2px 4px;
+        border-radius: 2px;
+    }
+    & .out {
+        background: #f3afaa;
+    }
 }

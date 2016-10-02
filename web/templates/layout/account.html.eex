@@ -14,13 +14,6 @@
             <ul class="menu-list">
                 <%= if User.Permissions.to_sell_products?(@current_user) do %>
                     <li>
-                        <a class="" href="#">Purchase Orders</a>
-                        <ul>
-                            <li><a href="#">Active</a></li>
-                            <li><a href="#">History</a></li>
-                        </ul>
-                    </li>
-                    <li>
                     <%= active_path_link(&account_product_path(&1, :index), @conn, []) do %>
                         My Products
                     <% end %>
@@ -31,15 +24,21 @@
                         <li><%= active_path_link(&account_product_path(&1, :stash), @conn, []) do %>
                             📦 Stash
                         <% end %></li>
+                        <li><%= active_path_link(&account_product_path(&1, :purchase_orders), @conn, []) do %>
+                            Purchase orders
+                        <% end %></li>
                     </ul>
                 <% end %>
                 </li>
                 <%= if User.Permissions.to_buy_products?(@current_user) do %>
                 <li>
-                    <a class="" href="#">My Orders</a>
+                    <%= active_path_link(&account_path(&1, :orders), @conn, []) do %>
+                        My Orders
+                    <% end %>
                     <ul>
-                        <li><a href="#">Active</a></li>
-                        <li><a href="#">History</a></li>
+                        <%= active_path_link(&account_path(&1, :orders, active?: true), @conn, []) do %>
+                           Active
+                        <% end %>
                     </ul>
                 </li>
                 <% end %>
@@ -48,10 +47,10 @@
                My Account
             </p>
             <ul class="menu-list">
-                <li><%= active_path_link(&account_contacts_path(&1, :contacts), @conn, []) do %>
+                <li><%= active_path_link(&account_path(&1, :contacts), @conn, []) do %>
                     Contacts
                     <% end %></li>
-                <li><%= active_path_link(&account_settings_path(&1, :settings), @conn, []) do %>
+                <li><%= active_path_link(&account_path(&1, :settings), @conn, []) do %>
                     Settings
                     <% end %></li>
             </ul>

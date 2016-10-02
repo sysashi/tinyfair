@@ -18,9 +18,11 @@ defmodule TinyFair.Marketplace.OrderController do
         conn
         |> put_flash(:info, "Order created successfully.")
         |> redirect(to: marketplace_path(conn, :index))
-      {:error, _changeset} ->
-        IO.inspect  order_changeset
-        render(conn, "new.html", changeset: order_changeset, produce: conn.assigns.product)
+      {:error, product_changeset} ->
+        IO.inspect merge_errors(order_changeset, product_changeset)
+        conn
+        |> put_flash(:error, "Something went wrong with your order.")
+        |> render("new.html", changeset: order_changeset, produce: conn.assigns.product)
     end
   end
 
@@ -36,6 +38,12 @@ defmodule TinyFair.Marketplace.OrderController do
       conn
       |> assign(:product, product)
     end
+  end
+
+  def merge_errors(cs1, cs2) do
+    cs1
+    |> Map.put(:errors, cs1.errors ++ cs2.errors)
+    |> Map.put(:valid?, cs1.valid? and cs2.valid?)
   end
 
   def action(conn, _) do

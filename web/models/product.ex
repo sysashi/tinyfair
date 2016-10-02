@@ -45,16 +45,11 @@ defmodule TinyFair.Product do
     |> cast_attachments(params, [:image_url])
   end
 
-  def place_order(product, nil) do
-    product
-    |> update_changeset
-    |> cast_assoc(:orders)
-  end
-
   def place_order(product, order) do
     product
     |> update_changeset
     |> put_assoc(:orders, product.orders ++ [order])
+    |> only_allowed_status("instock")
   end
 
   def marketplace_entry do
@@ -65,6 +60,10 @@ defmodule TinyFair.Product do
 
   def available do
     where(Product, [p], is_nil(p.deleted_at))
+  end
+
+  def can_be_purchased(query) do
+    where(query, status: "instock")
   end
 
   def can_be_listed(query)do
@@ -86,6 +85,17 @@ defmodule TinyFair.Product do
   def with_active_owner(query) do
     from(p in with_owner(query), join: o in assoc(p, :owner),
       where: o.status == "active")
+  end
+
+  def only_allowed_status(changeset, status) do
+    current_status = get_field(changeset, :status)
+    if current_status == status do
+      changeset
+    else
+      changeset
+      |> add_error(:status, "allowed status: #{status}")
+      |> delete_change(:orders)
+    end
   end
 
   def maybe_put_image(params) do

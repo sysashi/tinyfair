@@ -1,4 +1,8 @@
-<% is_owner? = fn product, user -> user.id == product.owner.id end  %>
+<%
+owner? = fn product, user -> user.id == product.owner.id end
+available? = fn product -> product.status == "instock" end
+disabled = fn p, u -> if owner?.(p, u) or not available?.(p), do: "button-disabled" end
+%>
 <div class="marketplace">
     <div class="entities-list">
         <ul>
@@ -19,11 +23,12 @@
                         </div>
                         <div class="entity-card__block center-items product-status">
                             <label> Status </label>
-                            <span><%= humanize_status(product.status) %></span>
+                            <span class="<%= available?.(product) || "out" %>">
+                                <%= humanize_status(product.status) %></span>
                         </div>
                         <div class="entity-card__block center-items product-owner">
                             <label> Seller </label>
-                            <%= if is_owner?.(product, @current_user) do %>
+                            <%= if owner?.(product, @current_user) do %>
                                 <span><em><strong>(You)</strong></em></span>
                             <% else  %>
                                 <span><a href="#"><%= product.owner.username %></a></span>
@@ -32,8 +37,7 @@
                         <%= if User.Permissions.to_buy_products?(@current_user) do %>
                         <div class="card-action-button entity-card__block">
                             <%= link "Get", to: product_order_path(@conn, :new, product),
-                            class: "button button-success \
-                            #{if is_owner?.(product, @current_user), do: "button-disabled"}" %>
+                            class: "button button-success #{disabled.(product, @current_user)}" %>
                         </div>
                         <% end %>
                     </div>

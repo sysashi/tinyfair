@@ -15,6 +15,14 @@ defmodule TinyFair.ProductController do
     render(conn, "index.html", products: products)
   end
 
+  def purchase_orders(conn, _params, current_user) do
+    orders = Ecto.assoc(current_user, [:products, :orders])
+    |> Ecto.Query.preload(:issuer)
+    |> Ecto.Query.order_by(desc: :inserted_at)
+    |> Repo.all
+    render(conn, "purchase_orders.html", orders: orders)
+  end
+
   def new(conn, _params, _) do
     changeset = Product.changeset(%Product{})
     render(conn, "new.html", changeset: changeset)

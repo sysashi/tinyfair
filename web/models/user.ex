@@ -34,8 +34,7 @@ defmodule TinyFair.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username])
-    |> validate_required([:username])
+    |> cast(params, [])
   end
 
   def update_contacts(struct, params \\ %{}) do

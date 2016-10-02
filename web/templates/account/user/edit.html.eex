@@ -1,5 +1,5 @@
 <div class="center-form">
-<%= form_for @changeset, account_contacts_path(@conn, :update_contacts), fn f -> %>
+<%= form_for @changeset, account_path(@conn, :update_contacts), fn f -> %>
     <%= label f, :phone, "Phone number", class: "control-label" %>
     <%= error_tag f, :phone %>
     <%= telephone_input f, :phone, class: "form-control" %>

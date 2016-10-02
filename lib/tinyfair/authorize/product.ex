@@ -14,7 +14,8 @@ defmodule TinyFair.Product.Authorization do
     :ok
   end
 
-  rule [:index, :stash], "users can list their products", struct_or_cs, actor do
+  rule [:index, :stash, :purchase_orders], "users can list their products and it's orders",
+    struct_or_cs, actor do
     :ok
   end
 
