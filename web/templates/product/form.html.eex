@@ -6,20 +6,43 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :desc, class: "control-label" %>
+    <%= textarea f, :desc, class: "form-control" %>
+    <%= error_tag f, :desc %>
+  </div>
+
+  <div class="merchinfo">
+  <%= inputs_for f, :prices, fn m -> %>
+    <%= number_input m, :price, min: 100 %>
+    <%= text_input m, :currency %>
+    <%= text_input m, :unit %>
+    <%= inputs_for m, :payable_services, fn ps -> %>
+        <%= number_input ps, :price %>
+        <%= text_input ps, :currency %>
+        <%= text_input ps, :unit %>
+        <%= text_input ps, :service_name %>
+    <% end %>
+  <% end %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :quantity, class: "control-label" %>
     <%= number_input f, :quantity, class: "form-control", min: 0 %>
     <%= error_tag f, :quantity %>
   </div>
 
   <div class="form-group">
-    <%= label f, :desc, class: "control-label" %>
-    <%= text_input f, :desc, class: "form-control" %>
-    <%= error_tag f, :desc %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :status, class: "control-label" %>
-    <%= text_input f, :status, class: "form-control" %>
+
+    <%= content_tag :span, "Stash" %>
+    <%= radio_button f, :status, "stash" %> 
+
+    <%= content_tag :span, "In Stock" %>
+    <%= radio_button f, :status, "instock" %>
+
+    <%= content_tag :span, "Out of Stock" %>
+    <%= radio_button f, :status, "outstock" %>
+
     <%= error_tag f, :status %>
   </div>
 

@@ -6,23 +6,43 @@ defmodule TinyFair.Marketplace.OrderController do
 
   def new(conn, %{"id" => product_id}, current_user) do
     # TODO: Show product card
-    changeset = Order.changeset(%Order{})
+    product = conn.assigns.product
+    available_servies = current_price(product).payable_services
+    changeset = Order.changeset(%Order{chosen_services: available_servies})
     render(conn, "new.html", changeset: changeset, product: conn.assigns.product)
   end
 
   def create(conn, %{"id" => product_id, "order" => order_params}, current_user) do
-    order_changeset = Ecto.build_assoc(current_user, :orders) |> Order.changeset(order_params)
-    product_changeset = conn.assigns.product |> Product.place_order(order_changeset)
+    # FIXME ASAP BRO
+    IO.inspect order_params
+    product = conn.assigns.product
+    order_changeset = build_assoc(current_user, :orders, %{price_id: current_price(product).id })
+    |> Order.changeset(order_params)
+    |> Ecto.Changeset.update_change(:chosen_services, fn services ->
+      Enum.filter(services, & &1.changes.chosen?)
+      |> Enum.map(fn service ->
+         Enum.find(current_price(product).payable_services, & &1.id == service.changes.id)
+        |> TinyFair.Embeddeds.Service.changeset
+        |> Map.put(:action, :insert)
+      end)
+    end)
+    |> IO.inspect
+    product_changeset = product |> Product.place_order(order_changeset)
     case Repo.update(product_changeset) do
-      {:ok, _product} ->
+      {:ok, product} ->
         conn
         |> put_flash(:info, "Order created successfully.")
-        |> redirect(to: marketplace_path(conn, :index))
+        |> render("success.html",
+                  product: product,
+                  order: Ecto.Changeset.apply_changes(order_changeset))
       {:error, product_changeset} ->
         IO.inspect merge_errors(order_changeset, product_changeset)
+        changeset = Ecto.Changeset.apply_changes(order_changeset)
+        |> Order.changeset
+        |> IO.inspect
         conn
         |> put_flash(:error, "Something went wrong with your order.")
-        |> render("new.html", changeset: order_changeset, produce: conn.assigns.product)
+        |> render("new.html", changeset: changeset, produce: conn.assigns.product)
     end
   end
 
@@ -30,7 +50,9 @@ defmodule TinyFair.Marketplace.OrderController do
     product = Product.available
     |> Product.with_owner
     |> Product.with_orders
+    |> Product.with_prices
     |> Repo.get!(conn.params["id"])
+
     if product.owner.id == conn.assigns.current_user.id do
       conn
       |> text("GO AWAY, Product owners cannot place orders on their own stuff")
@@ -38,6 +60,10 @@ defmodule TinyFair.Marketplace.OrderController do
       conn
       |> assign(:product, product)
     end
+  end
+
+  def current_price(product) do
+    product.prices |> List.first
   end
 
   def merge_errors(cs1, cs2) do

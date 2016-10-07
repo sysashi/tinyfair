@@ -24,7 +24,7 @@ defmodule TinyFair.ProductController do
   end
 
   def new(conn, _params, _) do
-    changeset = Product.changeset(%Product{})
+    changeset = Product.create_changeset(%Product{prices: [price_template()]})
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -37,6 +37,7 @@ defmodule TinyFair.ProductController do
         |> put_flash(:info, "Product was created")
         |> render("new.html", changeset: changeset)
       {:error, changeset} ->
+        IO.inspect changeset
         conn
         |> render("new.html", changeset: changeset)
     end
@@ -60,8 +61,44 @@ defmodule TinyFair.ProductController do
     end
   end
 
+ # defp default_merch do
+ #   %TinyFair.Embeddeds.MerchInfo{
+ #     price: 100,
+ #     currency: "THB",
+ #     unit: "package",
+ #     extra_fees: [
+ #       %TinyFair.Embeddeds.ExtraFee{
+ #         fee: "Delivery",
+ #         amount: 50
+ #       }
+ #     ]
+ #   }
+ # end
+
+
+  def price_template do
+    %Price{
+      price: 0,
+      currency: "THB",
+      unit: "package",
+      payable_services: [
+        %TinyFair.Embeddeds.Service{
+          service_name: "Delivery",
+          price: 100,
+          currency: "THB",
+          unit: "package"
+        },
+        %TinyFair.Embeddeds.Service{
+          service_name: "Other stuff",
+          price: 50,
+          currency: "THB",
+          unit: "package"
+        }
+      ]
+    }
+  end
   def action(conn, _) do
-    user = conn.assigns.current_user |> Repo.preload(:products)
+    user = conn.assigns.current_user |> Repo.preload([products: :prices])
     apply(__MODULE__, action_name(conn),
       [conn, conn.params, user])
   end

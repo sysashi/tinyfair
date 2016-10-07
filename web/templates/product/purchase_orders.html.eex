@@ -1,0 +1,6 @@
+<%= for order <- @orders do %>
+<p>from: <%= order.issuer.username %>
+    amount: <%= order.amount %>
+    status: <%= order.status %>
+</p>
+<% end %>

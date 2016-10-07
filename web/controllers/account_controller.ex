@@ -52,6 +52,7 @@ defmodule TinyFair.AccountController do
     end
   end
 
+  # TODO
   def update_user(user, :contacts, params) do
     user
     |> User.update_contacts(params)
@@ -69,6 +70,7 @@ defmodule TinyFair.AccountController do
     |> User.changeset(params)
     |> Repo.update
   end
+
 
   # Overrides phoenix's action/2
   def action(conn, _) do

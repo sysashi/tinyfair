@@ -16,12 +16,15 @@ body {
 }
 
 main {
+    flex: 1;
     display: flex;
     justify-content: center;
 }
 
 .container {
+    flex-direction: column;
     flex: 1;
+    display: flex;
     max-width: 900px;
 }
 
@@ -242,6 +245,10 @@ a {
     line-height: 1;
     word-break: break-word;
 
+    & .flex-row {
+        padding: 10px 0;
+    }
+
     & .entity-card__block {
         flex: 1;
         flex-direction: column;
@@ -249,12 +256,18 @@ a {
         justify-content: center;
         align-items: flex-start;
         line-height: 1.33;
+        &.order-product {
+            flex: 2 2;
+        }
 
         & > span {
             margin-bottom: auto;            
             font-size: 13px;
             word-wrap: break-word;
             word-break: break-all;
+            &.entity-card__label {
+                font-style: italic;
+            }
         }
 
         & > label {
@@ -276,7 +289,6 @@ a {
 
     & .card-action-button {
         flex: 0;
-        padding: 0 10px;
     }
 
     & a {
@@ -312,4 +324,101 @@ a {
     & .out {
         background: #f3afaa;
     }
+}
+
+.product-order-card {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 10px;
+    & > div {
+        margin: 10px;
+        padding-bottom: 10px;
+    }
+    & .meta > img {
+        height: 50px;
+        width: 50px;
+        image-rendering: pixelated;
+    }
+    & .meta {
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & .name {
+            font-weight: bold;
+        }
+    }
+    & .desc {
+        border-bottom: 1px solid #eee;
+    }
+    & .merchinfo {
+        display: flex;
+        flex-direction: column;
+        font-size: 2rem;
+        & .total {
+            flex: 1;
+            text-align: center;
+        }
+        & .payable-services {
+            margin: 5px 0;
+            line-height: 1.6;
+            font-size: 1.4rem;
+            & input {
+                margin-bottom: 0;
+            }
+            & > ul {
+                list-style: none;
+                & > li {
+                    margin: 0;
+                    padding: 0;
+                    & > label {
+                        display: inline-block;
+                        font-weight: 300;
+                    }
+                }
+            }
+            & > span {
+                font-size: 1.3rem;
+                font-style: italic;
+            }
+            & .fee {
+                 
+            }
+        }
+        & .price-amount {
+            display: flex;
+            align-items: center;
+            & .product-price {
+                margin-right: 10px;
+            }
+            & .order-amount {
+                align-items: center;
+                display: flex;
+                & .unit {
+                    font-size: 1.5rem;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                }
+                & > input {
+                    margin-bottom: 0;
+                    max-width: 80px
+                }
+            }
+        }
+    }
+    & .order-form {
+        & > form {
+            margin-bottom: 0;
+        }
+        & .submit-order {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.order-product-preview  {
+    height: 20px;
+    width: 20px;
+    image-rendering: pixelated;
+    margin-right: 10px;
 }

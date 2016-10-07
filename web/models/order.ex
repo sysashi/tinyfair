@@ -8,7 +8,8 @@ defmodule TinyFair.Order do
     field :status, :string, default: "new"
     field :expiry, :utc_datetime
     belongs_to :issuer, User, foreign_key: :user_id
-    embeds_one :extra_fees, Order.ExtraFees
+    belongs_to :price, Price
+    embeds_many :chosen_services, TinyFair.Embeddeds.Service
     many_to_many :products, Product, join_through: "products_orders"
     timestamps()
   end
@@ -23,18 +24,10 @@ defmodule TinyFair.Order do
     |> validate_inclusion(:status, @avaialable_statuses)
     |> validate_inclusion(:amount, 1..250)
     |> assoc_constraint(:issuer)
+    |> cast_embed(:chosen_services, with: &TinyFair.Embeddeds.Service.order_changeset/2)
   end
 
   def with_issuer(query) do
     preload(query, :issuer)
-  end
-
-  defmodule ExtraFees do
-    use Ecto.Schema
-
-    embedded_schema do
-      field :feename
-      field :amount
-    end
   end
 end

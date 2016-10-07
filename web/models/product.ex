@@ -10,8 +10,10 @@ defmodule TinyFair.Product do
     field :image_url, TinyFair.ProductImage.Type
     field :desc, :string
     field :status, :string, default: "stash"
+
+    many_to_many :prices, Price, join_through: "products_prices"
     belongs_to :owner, User, foreign_key: :user_id
-    many_to_many :orders, Order, join_through: "products_orders" 
+    many_to_many :orders, Order, join_through: "products_orders"
 
     field :delete?, :boolean, virtual: true
     field :deleted_at, Ecto.DateTime
@@ -30,6 +32,7 @@ defmodule TinyFair.Product do
     |> validate_length(:desc, max: 140)
     |> validate_inclusion(:status, @avaialable_statuses)
     |> assoc_constraint(:owner)
+    |> cast_assoc(:prices, required: true, with: &Price.create_changeset/2)
   end
 
   def update_changeset(struct, params \\ %{}) do
@@ -38,6 +41,7 @@ defmodule TinyFair.Product do
   end
 
   def create_changeset(struct, params \\ %{}) do
+    # FIXME
     params = maybe_put_image(params)
     struct
     |> changeset(params)
@@ -56,6 +60,7 @@ defmodule TinyFair.Product do
     available
     |> can_be_listed
     |> with_active_owner
+    |> preload(:prices)
   end
 
   def available do
@@ -72,6 +77,10 @@ defmodule TinyFair.Product do
 
   def in_stash(query) do
     where(query, status: "stash")
+  end
+
+  def with_prices(query) do
+    preload(query, :prices)
   end
 
   def with_owner(query) do

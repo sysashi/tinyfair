@@ -40,7 +40,7 @@ defmodule TinyFair.Product.Authorization do
       product = if action_name(conn) in [:edit, :update] do
         key = opts[:param] || "id"
         id = Map.get(conn.params, key)
-        Product.available |> Product.with_owner |> Repo.get!(id)
+        Product.available |> Product.with_owner |> Product.with_prices |> Repo.get!(id)
       end
       case Product.Authorization.authorize(product, current_user, action_name(conn)) do
         {:ok, nil} ->

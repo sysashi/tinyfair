@@ -3,6 +3,8 @@ owner? = fn product, user -> user.id == product.owner.id end
 available? = fn product -> product.status == "instock" end
 disabled = fn p, u -> if owner?.(p, u) or not available?.(p), do: "button-disabled" end
 %>
+
+
 <div class="marketplace">
     <div class="entities-list">
         <ul>
@@ -18,8 +20,11 @@ disabled = fn p, u -> if owner?.(p, u) or not available?.(p), do: "button-disabl
                         </div>
                         <div class="entity-card__block product-desc">
                             <label> Description </label>
-
                             <span><%= product.desc |> dotify(70) %></span>
+                        </div>
+                        <div class="entity-card__block product-price center-items">
+                            <label> Price </label>
+                            <span><%= format_price(product) %></span>
                         </div>
                         <div class="entity-card__block center-items product-status">
                             <label> Status </label>

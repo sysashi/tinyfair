@@ -47,3 +47,12 @@ label {
     background: #999;
     border-color: #999;
 }
+
+.flex-row {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}

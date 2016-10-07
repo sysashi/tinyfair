@@ -1,0 +1,13 @@
+<% price = @product.prices |> List.first %>
+
+<div class="center-form">
+<p> You have place an order for <%= @product.name %> </p>
+<p> <%= @order.amount %> <%= price.unit %>(s) * <%= price.price %> <%= price.currency |> format_currency %></p>
+<%= @order.chosen_services |> length %>
+<%= price.price %>
+<%= price.currency %>
+
+
+<%= link "Return to Marketplace", to: marketplace_path(@conn, :index) %>
+<%= link "Check you order status at account", to: account_path(@conn, :show) %>
+</div>

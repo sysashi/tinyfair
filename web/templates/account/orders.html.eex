@@ -1,0 +1,32 @@
+<div class="orders-list entities-list">
+<ul>
+<%= for order <- @orders do %>
+   <% product = order.products |> List.first %>
+   <li> <div class="entity-card">
+        <div class="entity-card__block">
+            <span class="entity-card__label"> Created </span>
+            <span> <%= order.inserted_at |> NaiveDateTime.to_date %> </span>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label"> Status </span>
+            <span> <%= order.status %> </span>
+        </div>
+        <div class="entity-card__block order-product">
+            <span class="entity-card__label">Product</span>
+            <div class="flex-row">
+                <%= tag :img, src: image_url(product, :image_url), class: "order-product-preview" %>
+                <%= link product.name, to: product_order_path(@conn, :new, product) %>
+            </div>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label">Amount</span>
+            <span><%= order.amount %></span>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label">Total</span>
+            <span>500</span>
+        </div>
+   </div> </li>
+<% end %>
+<ul>
+</div>

@@ -1,10 +1,56 @@
 <div class="center-form">
-<h2>New order</h2>
-<%  action =  product_order_path(@conn, :create, @product) %>
-<%= form_for @changeset, action, fn f -> %>
-    <%= label f, :amount %>
-    <%= number_input f, :amount, min: 1 %>
-    <%= error_tag f, :amount %>
-    <%= submit "Submit", class: "btn btn-primary" %>
-<% end %>
+    <%  action =  product_order_path(@conn, :create, @product)
+        current_price = @product.prices |> List.first
+    %>
+    <h5> Create new purchase order. </h5>
+    <div class="product-order-card">
+        <div class="meta">
+            <%= tag :img, src: image_url(@product, :image_url) %>
+            <%= content_tag :span, @product.name, class: "name" %>
+            <%= link @product.owner.username, to: "/" %>
+        </div>
+        <div class="desc">
+            <%= @product.desc %>
+        </div>
+        <div class="order-form clearfix">
+        <%= form_for @changeset, action, fn f -> %>
+            <div class="merchinfo">
+                <div class="price-amount">
+                    <div class="order-amount">
+                        <%= number_input f, :amount, min: 1 %>
+                        <%= content_tag :span, current_price.unit  <> "(s)", class: "unit" %>
+                        <%= error_tag f, :amount %>
+                    </div>
+                    <div class="product-price">
+                    ✕ <%= current_price.price %>
+                      <%= format_currency(current_price.currency) %>
+                    </div>
+                </div>
+                <div class="flex-row">
+                <%= if current_price.payable_services != [] do %>
+                    <div class="payable-services">
+                        <span> Available additional services: </span>
+                        <ul>
+                            <%= inputs_for f, :chosen_services, fn cs -> %>
+                            <li>
+                                <%= checkbox cs, :chosen? %>
+                                <%= label cs, :chosen?, cs.data.service_name %>
+
+                                (+<%= content_tag :span, cs.data.price %>
+                                <%= content_tag :span, cs.data.currency |> format_currency %>)
+                            </li>
+                           <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+                <div class="total">
+                    <span> Total </span>
+                    <div> 500 </div>
+                </div>
+                </div>
+            </div>
+            <%= submit "Submit", class: "button button-success submit-order" %>
+        <% end %>
+        </div>
+    </div>
 </div>

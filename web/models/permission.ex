@@ -9,7 +9,6 @@ defmodule TinyFair.UserPermission do
   end
 
   def changeset(struct, params \\ %{}) do
-    IO.inspect params
     struct
     |> cast(params, [:permission])
   end
