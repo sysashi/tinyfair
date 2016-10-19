@@ -1,13 +1,29 @@
 <% price = @product.prices |> List.first %>
-
 <div class="center-form">
-<p> You have place an order for <%= @product.name %> </p>
-<p> <%= @order.amount %> <%= price.unit %>(s) * <%= price.price %> <%= price.currency |> format_currency %></p>
-<%= @order.chosen_services |> length %>
-<%= price.price %>
-<%= price.currency %>
-
-
-<%= link "Return to Marketplace", to: marketplace_path(@conn, :index) %>
-<%= link "Check you order status at account", to: account_path(@conn, :show) %>
+    <div class="order-success">
+        <div class="order-info">
+            <div>You have placed an order for</div>
+            <%= link @product.name, to: product_order_path(@conn, :new, @product) %>
+        </div>
+        <div class="order-price-details">
+            <div class="order-amount">
+                <%= format_order_total(@order, price) %>
+            </div>
+            <div class="chosen-services">
+                <ul>
+                    <%= for service <- @order.chosen_services do %>
+                        <li><%= format_service(service) %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+        <div class="order-total-price">
+            <span> Your total is </span>
+            <span class="total"><%= "#{price_total(@order, price)}#{price.currency |> format_currency}" %></span>
+        </div>
+        <div class="flex-row actions">
+            <%= link "Return to Marketplace", to: marketplace_path(@conn, :index) %>
+            <%= link "Track order status", to: account_path(@conn, :show) %>
+        </div>
+    </div>
 </div>

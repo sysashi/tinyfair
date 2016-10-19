@@ -45,14 +45,14 @@ defmodule TinyFair.Router do
       get "/", AccountController, :show
       get "/contacts", AccountController, :contacts
       get "/settings", AccountController, :settings
-      get "/orders", AccountController, :orders # User's orders
       put "/update", AccountController, :update
       patch "/update", AccountController, :update
       scope "/", as: :account do
+        resources "/orders", OrderController, only: [:index, :show]
         resources "/products", ProductController, except: [:show] do
-          resources "/orders", OrderController, only: [:index, :update, :edit]
+          resources "/orders", Product.OrderController, only: [:index, :update, :edit]
         end
-        get "/products/orders", ProductController, :purchase_orders
+        get "/products/orders", ProductController, :new_purchase_orders
         get "/products/stash", ProductController, :stash
       end
     end

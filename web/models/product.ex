@@ -10,13 +10,14 @@ defmodule TinyFair.Product do
     field :image_url, TinyFair.ProductImage.Type
     field :desc, :string
     field :status, :string, default: "stash"
+    belongs_to :owner, User, foreign_key: :user_id
 
     many_to_many :prices, Price, join_through: "products_prices"
-    belongs_to :owner, User, foreign_key: :user_id
     many_to_many :orders, Order, join_through: "products_orders"
 
     field :delete?, :boolean, virtual: true
     field :deleted_at, Ecto.DateTime
+
     timestamps()
   end
 
@@ -81,6 +82,7 @@ defmodule TinyFair.Product do
 
   def with_prices(query) do
     preload(query, :prices)
+    |> order_by(:desc)
   end
 
   def with_owner(query) do

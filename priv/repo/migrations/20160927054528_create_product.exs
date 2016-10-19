@@ -10,7 +10,7 @@ defmodule TinyFair.Repo.Migrations.CreateProduct do
       add :status, :string, null: false, default: "stash"
       add :user_id, references(:users, on_delete: :nothing), null: false
 
-      add :deleted_at, :datetime
+      add :deleted_at, :utc_datetime
       timestamps()
     end
     create index(:products, [:user_id])

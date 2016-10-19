@@ -1,3 +1,6 @@
+a {
+    color: #6d7ba5;
+}
 /* alerts */
 .alert {
     display: block;
@@ -40,6 +43,14 @@ label {
 .button.button-success {
     background-color: #96b764;
     border-color: #96b764;
+}
+
+.button.button-danger {
+    background: #f54e4e;
+    border-color: #c39797;
+    &:hover {
+        background: red;
+    }
 }
 
 .button.button-disabled {

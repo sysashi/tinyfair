@@ -28,6 +28,6 @@ defmodule TinyFair.Price do
   def create_changeset(struct, params \\ %{}) do
     struct
     |> changeset(params)
-    |> cast_embed(:payable_services, required: true)
+    |> cast_embed(:payable_services)
   end
 end

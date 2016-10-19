@@ -206,7 +206,6 @@ footer {
 }
 
 a {
-    color: #11e4c4;
     cursor: pointer;
     text-decoration: none;
     -webkit-transition: none 86ms ease-out;
@@ -261,7 +260,7 @@ a {
         }
 
         & > span {
-            margin-bottom: auto;            
+            margin-bottom: auto;
             font-size: 13px;
             word-wrap: break-word;
             word-break: break-all;
@@ -271,7 +270,7 @@ a {
         }
 
         & > label {
-            font-size: 10px; 
+            font-size: 10px;
             margin-bottom: auto;
             color: #999;
             font-weight: 400;
@@ -305,7 +304,7 @@ a {
         height: 50px;
         width: 50px;
         image-rendering: pixelated;
-    } 
+    }
 }
 
 /* Product marketplace listing view */
@@ -382,7 +381,7 @@ a {
                 font-style: italic;
             }
             & .fee {
-                 
+
             }
         }
         & .price-amount {
@@ -407,6 +406,7 @@ a {
         }
     }
     & .order-form {
+        margin-bottom: 0;
         & > form {
             margin-bottom: 0;
         }
@@ -421,4 +421,52 @@ a {
     width: 20px;
     image-rendering: pixelated;
     margin-right: 10px;
+}
+
+.order-success {
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    & > div {
+        padding: 10px;
+    }
+    & .order-info {
+        font-size: 2rem;
+        text-align: center;
+        padding: 10px 0;
+        background: #e8e8e8;
+    }
+    & .order-price-details {
+        border-top: 1px solid #DDD;
+        & .order-amount {
+            font-size: 2rem;
+        }
+        & .chosen-services {
+            & > ul {
+                margin-bottom: 0;
+                list-style: none;
+                & > li {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+    & .order-total-price {
+        border-top: 1px solid #DDD;
+        background: #e8e8e8;
+        font-size: 2.5rem;
+        text-align: center;
+        & > span.total {
+            font-weight: 400;
+        }
+    }
+    & .actions {
+        border-top: 1px solid #DDD;
+        text-align: center;
+        align-items: center;
+        & > a {
+            flex: 1;
+            padding: 10px;
+        }
+    }
 }

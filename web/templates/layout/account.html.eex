@@ -1,12 +1,5 @@
 <div class="row"> <div class="column column-25">
         <div class="menu">
-            <!-- <p class="menu-label">
-                Messages
-            </p>
-            <ul class="menu-list">
-                <li><a href="#">Inbox</a></li>
-                <li><a href="#">History</a></li>
-            </ul> -->
             <p class="menu-label">
                 Marketplace
             </p>
@@ -18,30 +11,26 @@
                     <% end %>
                     <ul>
                         <li><%= active_path_link(&account_product_path(&1, :new), @conn, []) do %>
-                            ➕ Add new
+                            Add new
                         <% end %></li>
                         <li><%= active_path_link(&account_product_path(&1, :stash), @conn, []) do %>
-                            📦 Stash
+                            Stash
                         <% end %></li>
-                        <li><%= active_path_link(&account_product_path(&1, :purchase_orders), @conn, []) do %>
-                            Purchase orders
+                        <li><%= active_path_link(&account_product_path(&1, :new_purchase_orders), @conn, []) do %>
+                            New purchase orders
                         <% end %></li>
                     </ul>
+                    </li>
                 <% end %>
-                </li>
                 <%= if User.Permissions.to_buy_products?(@current_user) do %>
-                <li>
-                    <%= active_path_link(&account_path(&1, :orders), @conn, []) do %>
+                    <li>
+                    <%= active_path_link(&account_order_path(&1, :index), @conn, []) do %>
                         My Orders
                     <% end %>
-                    <ul>
-                        <%= active_path_link(&account_path(&1, :orders, active?: true), @conn, []) do %>
-                           Active
-                        <% end %>
-                    </ul>
-                </li>
+                    </li>
                 <% end %>
             </ul>
+
             <p class="menu-label">
                My Account
             </p>
@@ -54,7 +43,6 @@
                     <% end %></li>
             </ul>
         </div>
-
     </div>
     <div class="column column-70">
         <div class="account-wrapper">

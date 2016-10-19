@@ -24,7 +24,6 @@
         </div>
         <div class="entity-card__block">
             <span class="entity-card__label">Total</span>
-            <span>500</span>
         </div>
    </div> </li>
 <% end %>

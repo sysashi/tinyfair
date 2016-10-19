@@ -15,8 +15,9 @@ defmodule TinyFair.ProductController do
     render(conn, "index.html", products: products)
   end
 
-  def purchase_orders(conn, _params, current_user) do
+  def new_purchase_orders(conn, _params, current_user) do
     orders = Ecto.assoc(current_user, [:products, :orders])
+    |> Ecto.Query.where(status: "new")
     |> Ecto.Query.preload(:issuer)
     |> Ecto.Query.order_by(desc: :inserted_at)
     |> Repo.all
@@ -60,22 +61,6 @@ defmodule TinyFair.ProductController do
         |> render("edit.html", changeset: changeset)
     end
   end
-
- # defp default_merch do
- #   %TinyFair.Embeddeds.MerchInfo{
- #     price: 100,
- #     currency: "THB",
- #     unit: "package",
- #     extra_fees: [
- #       %TinyFair.Embeddeds.ExtraFee{
- #         fee: "Delivery",
- #         amount: 50
- #       }
- #     ]
- #   }
- # end
-
-
   def price_template do
     %Price{
       price: 0,
@@ -85,12 +70,6 @@ defmodule TinyFair.ProductController do
         %TinyFair.Embeddeds.Service{
           service_name: "Delivery",
           price: 100,
-          currency: "THB",
-          unit: "package"
-        },
-        %TinyFair.Embeddeds.Service{
-          service_name: "Other stuff",
-          price: 50,
           currency: "THB",
           unit: "package"
         }

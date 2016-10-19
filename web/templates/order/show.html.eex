@@ -3,8 +3,8 @@
 <ul>
 
   <li>
-    <strong>Quantity:</strong>
-    <%= @order.quantity %>
+    <strong>Amount:</strong>
+    <%= @order.amount %>
   </li>
 
   <li>
@@ -18,6 +18,3 @@
   </li>
 
 </ul>
-
-<%= link "Edit", to: order_path(@conn, :edit, @order) %>
-<%= link "Back", to: order_path(@conn, :index) %>

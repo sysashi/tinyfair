@@ -19,7 +19,10 @@
                             <span><%= humanize_status(product.status) %></span>
                         </div>
                         <div class="card-action-button entity-card__block">
-                            <%= link "Edit", to: account_product_path(@conn, :edit, product), class: "button" %>
+                            <div class="flex-row">
+                            <%= link "Edit", to: account_product_path(@conn, :edit, product), class: "button button-danger" %>
+                            <%= link "Orders", to: account_product_order_path(@conn, :index, product), class: "button" %>
+                            </div>
                         </div>
                     </div>
                 </li>

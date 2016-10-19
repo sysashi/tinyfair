@@ -1,30 +1,31 @@
-<h2>Listing orders</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Quantity</th>
-      <th>Expiry</th>
-      <th>Status</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="orders-list entities-list">
+<ul>
 <%= for order <- @orders do %>
-    <tr>
-      <td><%= order.quantity %></td>
-      <td><%= order.expiry %></td>
-      <td><%= order.status %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: order_path(@conn, :show, order), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: order_path(@conn, :edit, order), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: order_path(@conn, :delete, order), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+   <% product = order.products |> List.first %>
+   <li> <div class="entity-card">
+        <div class="entity-card__block">
+            <span class="entity-card__label"> Created </span>
+            <span> <%= order.inserted_at |> NaiveDateTime.to_date %> </span>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label"> Status </span>
+            <span> <%= order.status %> </span>
+        </div>
+        <div class="entity-card__block order-product">
+            <span class="entity-card__label">Product</span>
+            <div class="flex-row">
+                <%= tag :img, src: image_url(product, :image_url), class: "order-product-preview" %>
+                <%= link product.name, to: product_order_path(@conn, :new, product) %>
+            </div>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label">Amount</span>
+            <span><%= order.amount %></span>
+        </div>
+        <div class="entity-card__block">
+            <span class="entity-card__label">Total</span>
+        </div>
+   </div> </li>
 <% end %>
-  </tbody>
-</table>
-
-<%= link "New order", to: order_path(@conn, :new) %>
+<ul>
+</div>

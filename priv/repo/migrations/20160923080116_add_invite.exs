@@ -6,8 +6,8 @@ defmodule TinyFair.Repo.Migrations.AddInvite do
       add :user_id, references(:users)
       add :user_role_id, references(:user_roles)
       add :token, :string
-      add :expiry, :datetime
-      add :activated_at, :datetime
+      add :expiry, :utc_datetime
+      add :activated_at, :utc_datetime
 
       timestamps()
     end

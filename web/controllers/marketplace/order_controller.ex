@@ -31,7 +31,6 @@ defmodule TinyFair.Marketplace.OrderController do
     case Repo.update(product_changeset) do
       {:ok, product} ->
         conn
-        |> put_flash(:info, "Order created successfully.")
         |> render("success.html",
                   product: product,
                   order: Ecto.Changeset.apply_changes(order_changeset))
@@ -42,7 +41,7 @@ defmodule TinyFair.Marketplace.OrderController do
         |> IO.inspect
         conn
         |> put_flash(:error, "Something went wrong with your order.")
-        |> render("new.html", changeset: changeset, produce: conn.assigns.product)
+        |> render("new.html", changeset: changeset, product: conn.assigns.product)
     end
   end
 

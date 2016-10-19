@@ -44,8 +44,6 @@
                     </div>
                 <% end %>
                 <div class="total">
-                    <span> Total </span>
-                    <div> 500 </div>
                 </div>
                 </div>
             </div>
