@@ -14,7 +14,7 @@ defmodule TinyFair.Embeddeds do
 
     def changeset(struct, params \\ %{}) do
       struct
-      |> cast(params, [:service_name])
+      |> cast(params, [:service_name, :chosen?, :id])
       |> validate_required([:service_name])
       |> validate_length(:service_name, max: 70)
       |> TinyFair.Price.changeset(params)
@@ -23,6 +23,7 @@ defmodule TinyFair.Embeddeds do
     def order_changeset(struct, params \\ %{}) do
       struct
       |> cast(params, [:id, :chosen?])
+      |> validate_required([:id, :chosen?])
     end
   end
 end

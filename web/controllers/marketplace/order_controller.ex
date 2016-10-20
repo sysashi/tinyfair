@@ -4,44 +4,22 @@ defmodule TinyFair.Marketplace.OrderController do
   plug Order.Authorization.Plug
   plug :load_product
 
-  def new(conn, %{"id" => product_id}, current_user) do
-    # TODO: Show product card
-    product = conn.assigns.product
-    available_servies = current_price(product).payable_services
+  def new(conn, %{"id" => product_id}, current_user, product) do
+    available_servies = product.current_price.payable_services
     changeset = Order.changeset(%Order{chosen_services: available_servies})
     render(conn, "new.html", changeset: changeset, product: conn.assigns.product)
   end
 
-  def create(conn, %{"id" => product_id, "order" => order_params}, current_user) do
-    # FIXME ASAP BRO
-    IO.inspect order_params
-    product = conn.assigns.product
-    order_changeset = build_assoc(current_user, :orders, %{price_id: current_price(product).id })
-    |> Order.changeset(order_params)
-    |> Ecto.Changeset.update_change(:chosen_services, fn services ->
-      Enum.filter(services, & &1.changes.chosen?)
-      |> Enum.map(fn service ->
-         Enum.find(current_price(product).payable_services, & &1.id == service.changes.id)
-        |> TinyFair.Embeddeds.Service.changeset
-        |> Map.put(:action, :insert)
-      end)
-    end)
-    |> IO.inspect
-    product_changeset = product |> Product.place_order(order_changeset)
-    case Repo.update(product_changeset) do
-      {:ok, product} ->
+  def create(conn, %{"id" => product_id, "order" => order_params}, current_user, product) do
+    order_changeset = new_order(current_user, product, order_params)
+    case Repo.insert(order_changeset) do
+      {:ok, order} ->
         conn
-        |> render("success.html",
-                  product: product,
-                  order: Ecto.Changeset.apply_changes(order_changeset))
-      {:error, product_changeset} ->
-        IO.inspect merge_errors(order_changeset, product_changeset)
-        changeset = Ecto.Changeset.apply_changes(order_changeset)
-        |> Order.changeset
-        |> IO.inspect
+        |> render("success.html", product: product, order: order)
+      {:error, order_changeset} ->
         conn
         |> put_flash(:error, "Something went wrong with your order.")
-        |> render("new.html", changeset: changeset, product: conn.assigns.product)
+        |> render("new.html", changeset: order_changeset, product: product)
     end
   end
 
@@ -51,6 +29,7 @@ defmodule TinyFair.Marketplace.OrderController do
     |> Product.with_orders
     |> Product.with_prices
     |> Repo.get!(conn.params["id"])
+    |> add_current_price()
 
     if product.owner.id == conn.assigns.current_user.id do
       conn
@@ -61,18 +40,12 @@ defmodule TinyFair.Marketplace.OrderController do
     end
   end
 
-  def current_price(product) do
-    product.prices |> List.first
-  end
-
-  def merge_errors(cs1, cs2) do
-    cs1
-    |> Map.put(:errors, cs1.errors ++ cs2.errors)
-    |> Map.put(:valid?, cs1.valid? and cs2.valid?)
+  def add_current_price(product) do
+     Map.put(product, :current_price, product.prices |> List.first)
   end
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
-      [conn, conn.params, conn.assigns.current_user])
+      [conn, conn.params, conn.assigns.current_user, conn.assigns.product])
   end
 end

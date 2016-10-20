@@ -32,8 +32,10 @@ defmodule TinyFair.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
     resources "/session", SessionController, singleton: true, only: [:new, :create, :delete]
     get "/session", SessionController, :delete # handy logout
+
     get "/invite", InviteController, :activation_page
     get "/invite-rules", InviteController, :invite_rules
     post "/invite", InviteController, :activate
@@ -41,6 +43,7 @@ defmodule TinyFair.Router do
 
   scope "/", TinyFair do
     pipe_through [:browser, :user_only] # Use the default browser stack
+
     scope "/account" do
       get "/", AccountController, :show
       get "/contacts", AccountController, :contacts

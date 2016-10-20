@@ -82,7 +82,7 @@ defmodule TinyFair.Product do
 
   def with_prices(query) do
     preload(query, :prices)
-    |> order_by(:desc)
+    |> order_by(desc: :inserted_at)
   end
 
   def with_owner(query) do

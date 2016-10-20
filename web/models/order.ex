@@ -20,11 +20,24 @@ defmodule TinyFair.Order do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:amount, :expiry, :status])
+    |> cast_embed(:chosen_services, with: &TinyFair.Embeddeds.Service.order_changeset/2)
     |> validate_required([:amount, :status])
     |> validate_inclusion(:status, @avaialable_statuses)
     |> validate_inclusion(:amount, 1..250) # Maximum allowed amount in one purchase
     |> assoc_constraint(:issuer)
-    |> cast_embed(:chosen_services, with: &TinyFair.Embeddeds.Service.order_changeset/2)
+  end
+
+  # O(n^2)?
+  def create(changeset, available_servies) when is_list(available_servies) do
+    as = Enum.reduce(available_servies, %{}, fn s, acc ->
+      Map.put(acc, s.id, s |> Map.from_struct)
+    end)
+    update_change(changeset, :chosen_services, fn services ->
+      IO.inspect services
+      Enum.filter(services, & &1.changes.chosen?)
+      |> IO.inspect
+      |> Enum.map(fn s -> change(s, Map.get(as, s.changes.id, %{})) end)
+    end)
   end
 
   def with_issuer(query) do
