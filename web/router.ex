@@ -64,6 +64,7 @@ defmodule TinyFair.Router do
       get "/", MarketplaceController, :index
       scope "/products", Marketplace, as: "product" do
         get "/:id/get", OrderController, :new
+        get "/:id/success", OrderController, :success
         post "/:id/order", OrderController, :create
       end
     end

@@ -7,19 +7,32 @@ defmodule TinyFair.Marketplace.OrderController do
   def new(conn, %{"id" => product_id}, current_user, product) do
     available_servies = product.current_price.payable_services
     changeset = Order.changeset(%Order{chosen_services: available_servies})
-    render(conn, "new.html", changeset: changeset, product: conn.assigns.product)
+    render(conn, "new.html", changeset: changeset, product: product)
   end
 
-  def create(conn, %{"id" => product_id, "order" => order_params}, current_user, product) do
-    order_changeset = new_order(current_user, product, order_params)
-    case Repo.insert(order_changeset) do
+  def create(conn, %{"order" => order_params}, current_user, product) do
+    changeset = new_order(current_user, product, order_params)
+    case Repo.insert(changeset) do
       {:ok, order} ->
         conn
-        |> render("success.html", product: product, order: order)
-      {:error, order_changeset} ->
+        |> put_session(:order_id, order.id)
+        |> redirect(to: product_order_path(conn, :success, product))
+      {:error, changeset} ->
         conn
         |> put_flash(:error, "Something went wrong with your order.")
-        |> render("new.html", changeset: order_changeset, product: product)
+        |> render("new.html", changeset: changeset, product: product)
+    end
+  end
+
+  def success(conn, _params, _current_user, product) do
+    if id = get_session(conn, :order_id) do
+      order = Repo.get!(Order, id)
+      conn
+      |> delete_session(:order_id)
+      |> render("success.html", product: product, order: order)
+    else
+      conn
+      |> redirect(to: product_order_path(conn, :new, product))
     end
   end
 
@@ -28,7 +41,7 @@ defmodule TinyFair.Marketplace.OrderController do
     |> Product.with_owner
     |> Product.with_orders
     |> Product.with_prices
-    |> Repo.get!(conn.params["id"])
+    |> Repo.get!(conn.params["id"]) # TODO FIXME
     |> add_current_price()
 
     if product.owner.id == conn.assigns.current_user.id do

@@ -19,7 +19,7 @@ defmodule TinyFair.Order.Authorization do
     end
   end
 
-  rule [:new, :create], "only users with permission to buy can create orders", struct_or_cs, actor do
+  rule [:new, :create, :success], "only users with permission to buy can create orders", struct_or_cs, actor do
     if User.Permissions.to_buy_products?(actor) do
       :ok
     else
