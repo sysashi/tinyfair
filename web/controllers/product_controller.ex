@@ -50,6 +50,8 @@ defmodule TinyFair.ProductController do
   end
 
   def update(conn, %{"product" => product_params}, current_user) do
+    # TODO
+    # 1. If there are changes to the price, add new price with updated version
     changeset = Product.update_changeset(conn.assigns.product, product_params)
     case Repo.update(changeset) do
       {:ok, product} ->
@@ -61,6 +63,7 @@ defmodule TinyFair.ProductController do
         |> render("edit.html", changeset: changeset)
     end
   end
+
   def price_template do
     %Price{
       price: 0,

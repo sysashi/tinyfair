@@ -5,6 +5,10 @@ defmodule TinyFair.ControllerHelpers do
 
   alias TinyFair.Order
 
+  def new_price_version() do
+    
+  end
+
   def new_order(user, product, order_params) do
     order_changeset = build_assoc(user, :orders)
     |> Order.changeset(order_params)
